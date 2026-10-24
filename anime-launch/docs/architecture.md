@@ -20,7 +20,7 @@ game/project.sb3                    Original gameplay, costumes, sounds
 
 ## Source and generated output
 
-`src/`, `config/`, `public/`, `game/`, and `scripts/` are authored inputs. `scripts/build.js` copies browser modules and public assets, bundles the runtime adapter, packages the original game, and writes `dist/`. Only the adapter requires bundling because TurboWarp inserts it as a classic script. The browser application stays as native ES modules.
+`src/`, `config/`, `public/`, `game/`, and `scripts/` are authored inputs. `scripts/game/apply-nami.js` applies Nami’s readable character settings to a copy of the original project, fixing her roster, attack, unlock, tooltips, reward, and save/load support. The supplied SB3 remains untouched. `scripts/build.js` copies browser modules and public assets, bundles the runtime adapter, packages the original game, and writes `dist/`. Only the adapter requires bundling because TurboWarp inserts it as a classic script. The browser application stays as native ES modules.
 
 Keeping generated files out of source control avoids reviews dominated by machine-generated runtime changes. Builds read the original project without modifying it; packaging does not translate the Scratch blocks into maintainable native game-engine source.
 

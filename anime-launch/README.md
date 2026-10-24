@@ -15,20 +15,23 @@ Open http://127.0.0.1:4173. After changing source files, run `npm run build` and
 
 ## Where to make changes
 
-| Change                                             | Edit                             |
-| -------------------------------------------------- | -------------------------------- |
-| Page text and layout                               | `src/index.html`                 |
-| Colors, fonts, base styles                         | `src/styles/theme.css`           |
-| Game frame and toolbar                             | `src/styles/player.css`          |
-| Help text and footer styles                        | `src/styles/content.css`         |
-| Phone and touch layouts                            | `src/styles/responsive.css`      |
-| Loading messages and player URL                    | `src/app/config.js`              |
-| Keyboard/touch input definitions                   | `src/shared/controls.js`         |
-| Loading, retry, restart, mute behavior             | `src/player/game-player.js`      |
-| Buttons and UI state                               | `src/app/`                       |
-| Communication with the game engine                 | `src/runtime/scratch-adapter.js` |
-| Frame rate, stage size, storage identity           | `config/game.js`                 |
-| Actual characters, physics, skills, game art/audio | `game/project.sb3`               |
+| Change                                               | Edit                             |
+| ---------------------------------------------------- | -------------------------------- |
+| Page text and layout                                 | `src/index.html`                 |
+| Colors, fonts, base styles                           | `src/styles/theme.css`           |
+| Game frame and toolbar                               | `src/styles/player.css`          |
+| Help text and footer styles                          | `src/styles/content.css`         |
+| Phone and touch layouts                              | `src/styles/responsive.css`      |
+| Loading messages and player URL                      | `src/app/config.js`              |
+| Keyboard/touch input definitions                     | `src/shared/controls.js`         |
+| Loading, retry, restart, mute behavior               | `src/player/game-player.js`      |
+| Buttons and UI state                                 | `src/app/`                       |
+| Communication with the game engine                   | `src/runtime/scratch-adapter.js` |
+| Frame rate, stage size, storage identity             | `config/game.js`                 |
+| Nami power, task, description, and roster slot       | `game/characters/nami.js`        |
+| Original characters, physics, skills, game art/audio | `game/project.sb3`               |
+
+Nami’s additions are applied at build time by `scripts/game/apply-nami.js`; adjust her settings in `game/characters/nami.js`. Her final roster entry unlocks after a run past 600 distance in which Luffy was actually used. Her 1,200-power hit is twice Saitama’s 600, and her unlock is included in save codes.
 
 **The gameplay has not been rewritten into native JavaScript.** Edit `game/project.sb3` in Scratch or TurboWarp, export it over the same file, then build. The readable modules control the website and the interface to that game. `dist/game/script.js` is third-party generated runtime code, not the source of your game.
 
