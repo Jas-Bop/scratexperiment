@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import JSZip from '@turbowarp/jszip';
-import { prepareGame } from '../scripts/game/apply-nami.js';
+import { prepareGame } from '../scripts/game/prepare-game.js';
 
 const source = await readFile(new URL('../game/project.sb3', import.meta.url));
 const archive = await JSZip.loadAsync(await prepareGame(source));

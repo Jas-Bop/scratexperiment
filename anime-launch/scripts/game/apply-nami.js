@@ -1,6 +1,5 @@
-import { createHash } from 'node:crypto';
-import JSZip from '@turbowarp/jszip';
 import { NAMI } from '../../game/characters/nami.js';
+import { CHARACTERS, resolveAttackStat } from '../../game/characters/index.js';
 import {
   ScratchBlocks,
   broadcastNamed,
@@ -12,50 +11,26 @@ import {
   variableNamed,
 } from './scratch-blocks.js';
 
-/** Keep character changes readable in source instead of manually editing opaque SB3 block IDs. */
-export async function prepareGame(projectBytes) {
-  const archive = await JSZip.loadAsync(projectBytes);
-  const project = JSON.parse(await archive.file('project.json').async('string'));
-  const balance = applyNami(project);
-  addInfoCostume(archive, project, 'nami', [
-    'NAMI',
-    NAMI.description,
-    `Power: ${balance.power}`,
-    `Vertical: ${balance.vertical}`,
-  ]);
-  addInfoCostume(archive, project, 'nami_locked', ['NAMI · LOCKED', 'Task:', NAMI.unlock.task]);
-  await addRewardDescription(archive, project);
-  archive.file('project.json', JSON.stringify(project));
-  return archive.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
-}
-
-export function applyNami(project) {
+/** Repair the unfinished imported Nami sprite; character design values come from the catalog. */
+export function applyNami(project, nami = NAMI, characters = CHARACTERS) {
   ensureVariable(project, 'task_nami_complete');
   broadcastNamed(project, 'summon_nami');
-  const reference = targetNamed(project, NAMI.referenceCharacter);
-  const attackValue = (variable) => {
-    const attack = Object.values(reference.blocks).find(
-      (block) =>
-        ['data_changevariableby', 'data_setvariableto'].includes(block.opcode) &&
-        block.fields.VARIABLE[0] === variable &&
-        Array.isArray(block.inputs.VALUE[1]),
-    );
-    if (!attack) throw new Error(`Missing ${NAMI.referenceCharacter} ${variable}`);
-    return Number(attack.inputs.VALUE[1][1]) * NAMI.powerMultiplier;
+  const balance = {
+    power: resolveAttackStat(nami.id, 'staff', 'power', characters),
+    vertical: resolveAttackStat(nami.id, 'staff', 'vertical', characters),
   };
-  const balance = { power: attackValue('power X'), vertical: attackValue('power Y') };
 
-  configureAttack(project, balance);
-  configureRoster(project);
-  configureUnlock(project);
-  configureSaveCodes(project);
+  configureAttack(project, balance, nami);
+  configureRoster(project, nami, characters);
+  configureUnlock(project, nami);
+  configureSaveCodes(project, nami);
   return balance;
 }
 
-function configureAttack(project, balance) {
-  const nami = targetNamed(project, 'nami');
+function configureAttack(project, balance, nami) {
+  const sprite = targetNamed(project, 'nami');
   const template = targetNamed(project, 'asta');
-  const localVelocity = variableNamed(project, nami, 'vel x');
+  const localVelocity = variableNamed(project, sprite, 'vel x');
   const templateVelocity = variableNamed(project, template, 'vel x');
   const replacements = {
     asta: 'nami',
@@ -65,34 +40,34 @@ function configureAttack(project, balance) {
     cd_asta: 'cd_Nami',
     [variableNamed(project, template, 'ammo_asta')[1]]: variableNamed(
       project,
-      nami,
+      sprite,
       'ammo_Nami',
     )[1],
-    [variableNamed(project, template, 'cd_asta')[1]]: variableNamed(project, nami, 'cd_Nami')[1],
+    [variableNamed(project, template, 'cd_asta')[1]]: variableNamed(project, sprite, 'cd_Nami')[1],
     [templateVelocity[1]]: localVelocity[1],
   };
 
   // Replace the unfinished copied Itadori script with an existing working melee-hit sequence.
-  nami.blocks = {};
+  sprite.blocks = {};
   for (const [index, id] of Object.keys(template.blocks)
     .filter((key) => template.blocks[key].topLevel)
     .entries()) {
-    const root = cloneGraph(template, nami, id, `nami:attack:${index}`, replacements, true);
-    nami.blocks[root].topLevel = true;
+    const root = cloneGraph(template, sprite, id, `nami:attack:${index}`, replacements, true);
+    sprite.blocks[root].topLevel = true;
   }
-  const builder = new ScratchBlocks(project, nami, 'nami:attack:guard');
-  const summon = findHat(nami, 'event_whenbroadcastreceived', 'summon_nami');
-  const body = nami.blocks[summon].next;
+  const builder = new ScratchBlocks(project, sprite, 'nami:attack:guard');
+  const summon = findHat(sprite, 'event_whenbroadcastreceived', 'summon_nami');
+  const body = sprite.blocks[summon].next;
   const guard = builder.if(
     builder.equals(builder.variable('char_nami_yn'), builder.literal(1)),
     body,
   );
-  nami.blocks[summon].next = guard;
-  nami.blocks[guard].parent = summon;
+  sprite.blocks[summon].next = guard;
+  sprite.blocks[guard].parent = summon;
 
-  for (const block of Object.values(nami.blocks)) {
+  for (const block of Object.values(sprite.blocks)) {
     if (block.opcode === 'data_setvariableto' && block.fields.VARIABLE[0] === 'ammo_Nami') {
-      block.inputs.VALUE = builder.literal(NAMI.ammo);
+      block.inputs.VALUE = builder.literal(nami.ammunition.perRun);
     }
     if (block.opcode === 'data_changevariableby' && block.fields.VARIABLE[0] === 'power X') {
       block.inputs.VALUE = builder.literal(balance.power);
@@ -100,21 +75,29 @@ function configureAttack(project, balance) {
     if (block.opcode === 'data_setvariableto' && block.fields.VARIABLE[0] === 'power Y') {
       block.inputs.VALUE = builder.literal(balance.vertical);
     }
-    if (block.opcode === 'operator_add') block.inputs.NUM2 = builder.literal(NAMI.cooldownSeconds);
+    if (block.opcode === 'data_changevariableby' && block.fields.VARIABLE[0] === 'ammo_Nami') {
+      block.inputs.VALUE = builder.literal(-nami.ammunition.costPerUse);
+    }
+    if (block.opcode === 'operator_add')
+      block.inputs.NUM2 = builder.literal(nami.attacks.staff.cooldownSeconds);
   }
 }
 
-function configureRoster(project) {
+function configureRoster(project, nami, characters) {
   const skillbar = targetNamed(project, 'skillbar');
   const builder = new ScratchBlocks(project, skillbar, 'nami:roster');
   const rosterEntry = Object.entries(skillbar.blocks).find(
     ([, block]) =>
       block.opcode === 'control_if' &&
-      skillbar.blocks[block.inputs.CONDITION?.[1]]?.inputs.OPERAND2?.[1]?.[1] ===
-        String(NAMI.rosterPosition),
+      [...graphIds(skillbar, block.inputs.SUBSTACK?.[1])].some(
+        (id) => skillbar.blocks[id].fields.COSTUME?.[0] === 'nami',
+      ),
   );
   if (!rosterEntry) throw new Error('Missing final Nami roster entry');
   const entryIds = graphIds(skillbar, rosterEntry[0], false);
+  skillbar.blocks[rosterEntry[1].inputs.CONDITION[1]].inputs.OPERAND2 = builder.literal(
+    nami.roster.slot,
+  );
   const [flagName, flagId] = variableNamed(project, skillbar, 'char_nami_yn');
   for (const id of entryIds) {
     const block = skillbar.blocks[id];
@@ -128,8 +111,8 @@ function configureRoster(project) {
     };
     for (const name of Object.keys(block.inputs)) block.inputs[name] = repair(block.inputs[name]);
     if (block.opcode === 'motion_gotoxy') {
-      block.inputs.X = builder.literal(NAMI.rosterX);
-      block.inputs.Y = builder.literal(NAMI.rosterY);
+      block.inputs.X = builder.literal(nami.roster.x);
+      block.inputs.Y = builder.literal(nami.roster.y);
     }
     if (block.opcode === 'control_if_else') {
       const locked = skillbar.blocks[block.inputs.SUBSTACK2?.[1]];
@@ -147,7 +130,9 @@ function configureRoster(project) {
     .map((id) => skillbar.blocks[id])
     .find((block) => block.opcode === 'control_repeat' && block.inputs.TIMES?.[1]?.[1] === '13');
   if (!rosterLoop) throw new Error('Missing character-roster creation loop');
-  rosterLoop.inputs.TIMES = builder.literal(NAMI.rosterPosition);
+  rosterLoop.inputs.TIMES = builder.literal(
+    Math.max(...characters.map((character) => character.roster.slot)),
+  );
 
   // Extend both skill dispatch and cooldown dimming using the same working Shadow branches.
   for (const procedure of ['summon', 'ghost']) {
@@ -186,7 +171,7 @@ function configureRoster(project) {
   }
 }
 
-function configureUnlock(project) {
+function configureUnlock(project, nami) {
   const tasks = targetNamed(project, 'tasks');
   const builder = new ScratchBlocks(project, tasks, 'nami:task');
   builder.append(
@@ -196,14 +181,14 @@ function configureUnlock(project) {
   const distance = builder.reporter(
     builder.block('operator_gt', {
       OPERAND1: builder.variable('Distance:'),
-      OPERAND2: builder.literal(NAMI.unlock.distanceExclusive),
+      OPERAND2: builder.literal(nami.unlock.distanceExclusive),
     }),
   );
   const usedLuffy = builder.reporter(
     builder.block(
       'data_listcontainsitem',
       {
-        ITEM: builder.literal(NAMI.unlock.characterUsed),
+        ITEM: builder.literal(nami.unlock.characterUsed),
       },
       {
         LIST: [
@@ -250,7 +235,7 @@ function configureUnlock(project) {
   );
 }
 
-function configureSaveCodes(project) {
+function configureSaveCodes(project, nami) {
   const save = targetNamed(project, 'Save');
   const load = targetNamed(project, 'Load');
   const saveBuilder = new ScratchBlocks(project, save, 'nami:save');
@@ -258,7 +243,7 @@ function configureSaveCodes(project) {
   const joined = saveBuilder.reporter(
     saveBuilder.block('operator_join', {
       STRING1: saveBuilder.variable('Save Code:'),
-      STRING2: saveBuilder.literal(NAMI.saveToken),
+      STRING2: saveBuilder.literal(nami.saveToken),
     }),
   );
   saveBuilder.append(
@@ -272,7 +257,7 @@ function configureSaveCodes(project) {
   const containsToken = loadBuilder.reporter(
     loadBuilder.block('operator_contains', {
       STRING1: loadBuilder.reporter(loadBuilder.block('sensing_answer')),
-      STRING2: loadBuilder.literal(NAMI.saveToken),
+      STRING2: loadBuilder.literal(nami.saveToken),
     }),
   );
   loadBuilder.append(
@@ -289,42 +274,4 @@ function procedureDefinition(target, name) {
   );
   if (!definition) throw new Error(`Missing procedure: ${name}`);
   return definition[0];
-}
-
-function addInfoCostume(archive, project, name, lines) {
-  const height = 12 + lines.length * 15;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="164" height="${height}" viewBox="0 0 164 ${height}">
-    <rect width="164" height="${height}" rx="3" fill="#35302a" stroke="#e9bf52"/>
-    <g fill="#fff" font-family="sans-serif" font-size="10">${lines
-      .map(
-        (line, index) =>
-          `<text x="7" y="${17 + index * 15}"${index === 0 ? ' fill="#ffd766" font-weight="bold"' : ''}>${line}</text>`,
-      )
-      .join('')}</g></svg>`;
-  const hash = createHash('md5').update(svg).digest('hex');
-  archive.file(`${hash}.svg`, svg);
-  targetNamed(project, 'info').costumes.push({
-    name,
-    assetId: hash,
-    md5ext: `${hash}.svg`,
-    dataFormat: 'svg',
-    bitmapResolution: 1,
-    rotationCenterX: 0,
-    rotationCenterY: 0,
-  });
-}
-
-function addRewardDescription(archive, project) {
-  const costume = targetNamed(project, 'anime').costumes.find((item) => item.name === 'nami');
-  // The original reward art is retained; add the requested quote to that same card.
-  const original = archive.file(costume.md5ext);
-  return original.async('string').then((svg) => {
-    const updated = svg.replace(
-      '</svg>',
-      `<text x="237" y="436" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#ffe274" stroke="#201a0d" stroke-width="0.5">${NAMI.description}</text></svg>`,
-    );
-    const hash = createHash('md5').update(updated).digest('hex');
-    archive.file(`${hash}.svg`, updated);
-    Object.assign(costume, { assetId: hash, md5ext: `${hash}.svg` });
-  });
 }

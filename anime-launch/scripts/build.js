@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import { build } from 'esbuild';
 import JSZip from '@turbowarp/jszip';
 import { GAME_CONFIG } from '../config/game.js';
-import { prepareGame } from './game/apply-nami.js';
+import { prepareGame } from './game/prepare-game.js';
 
 const require = createRequire(import.meta.url);
 const { Packager, loadProject } = require('@turbowarp/packager');

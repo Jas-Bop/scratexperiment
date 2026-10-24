@@ -1,0 +1,385 @@
+{
+  "grey": {
+    "contract": {
+      "unlockKind": "starter",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["grey", "6S!Ax{=FaroTd`wYlC5^", "VALUE", "launch.power"],
+      ["grey", "$%uyRTv$)cQr[h?+bH{6", "VALUE", "launch.vertical"],
+      ["grey", "Li(q~]E+Xq,zO5.bcmjz", "NUM1", "ammunition.progressionOffset"],
+      ["grey", "^jZzWX0n#4]E#z:m|5:I", "VALUE", "ammunition.maximum"],
+      ["grey", "Os[8%Ia/E=PuiINkH^q7", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["grey", "%k=4.OR8B#].+R.)2%hc", "VALUE", "ammunition.costPerUse", "negate"],
+      ["grey", "uIO}^X5HeO!gb:(.#64/", "VALUE", "attacks.normal.power"],
+      ["grey", ",kH@KMJu^BIrSsI0qa5|", "VALUE", "attacks.normal.vertical"],
+      ["grey", "dYZv1x1)M!Pyq@x,jvVL", "OPERAND1", "ammunition.capThreshold"],
+      ["skillbar", "Efk(|l]J*W_dB@K`F}pN", "OPERAND2", "roster.slot"],
+      ["skillbar", "_Ko-9i_k#ZVAVs6{)g_X", "X", "roster.x"],
+      ["skillbar", "_Ko-9i_k#ZVAVs6{)g_X", "Y", "roster.y"]
+    ]
+  },
+  "luffy": {
+    "contract": {
+      "unlockKind": "distanceRuns",
+      "upgradedFormId": "luffy2",
+      "upgradedUnlockKind": "equippedCharacter",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["luffy", "JY~7zhv`WeJhO{hpP{VW", "NUM1", "ammunition.progressionOffset"],
+      ["luffy", "6s29)E7^v05@X#568RM7", "VALUE", "ammunition.maximum"],
+      ["luffy", "fOD:9ZN5Q0*;U%waRZ2R", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["luffy", "~`hf()k__9Z!|;rxmyOv", "VALUE", "ammunition.costPerUse", "negate"],
+      ["luffy", "8q^3)LVo=[U8N{RddayZ", "VALUE", "attacks.normal.power"],
+      ["luffy", ":]t;Xrt~}BDIZ@to}o5?", "VALUE", "attacks.normal.vertical"],
+      ["luffy", "qvtzBpUo@_dKhe*UNPPv", "NUM2", "attacks.gearFifth.cooldownSeconds"],
+      ["luffy", "vX6}:tMRd!}nG|J;k2*}", "VALUE", "ammunition.costPerUse", "negate"],
+      ["luffy", "8BMO{Bt-c[;#7K+bQ5g9", "VALUE", "attacks.gearFifth.power"],
+      ["luffy", "HNQ%JyCp`](P_0VKnQdQ", "VALUE", "attacks.gearFifth.vertical"],
+      ["luffy", "-kEzO}3Bp,U=Ty^w~IA}", "OPERAND1", "ammunition.capThreshold"],
+      ["skillbar", "y*=BjF_n0[Tso+;?s[V8", "OPERAND2", "roster.slot"],
+      ["skillbar", "S8%fPJ!+OR*~F{5-=B-%", "X", "roster.x"],
+      ["skillbar", "S8%fPJ!+OR*~F{5-=B-%", "Y", "roster.y"],
+      ["tasks", "+rAi=!/SVI!U]~%EhW_u", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["tasks", "zqVa8?Xa=0ty4p8df$29", "OPERAND1", "unlock.runs", "minusOne"],
+      [
+        "tasks",
+        "f=KNaZmTC!,eA)OhA^bD",
+        "OPERAND1",
+        "upgradedForm.unlock.minimumDistance",
+        "minusOne"
+      ],
+      ["tasks", "(U.4WB=M139GQIw-%#1S", "ITEM", "upgradedForm.unlock.equippedCharacter"],
+      ["Save", "MvO%z=ldtFp1z7gr-2m-", "STRING2", "saveToken"],
+      ["Load", "p{ziJZK8C|-KMI7n%+U!", "STRING2", "saveToken"],
+      ["Save", "8;mf,R:.3Km(ZLTB?4py", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "tnOgcY:FG0XF+(_n+tET", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "ichigo": {
+    "contract": {
+      "unlockKind": "distanceRuns",
+      "upgradedFormId": "ichigo2",
+      "upgradedUnlockKind": "equippedCharacter",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["ichigo", "si@+818J:xlL4}l@XlT~", "NUM1", "ammunition.progressionOffset"],
+      ["ichigo", "EOdAVt?K1gay{o}JrEb+", "VALUE", "ammunition.maximum"],
+      ["ichigo", "_jh`l!o,v3vI,{Y%ym@L", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["ichigo", "|6:+g;Qk.}#U}ZD^viu[", "VALUE", "ammunition.costPerUse", "negate"],
+      ["ichigo", "4KSQZKjGDVnHJN:Ija=|", "VALUE", "attacks.normal.power"],
+      ["ichigo", "cEVbp?X:H/}W,g4v(dwZ", "VALUE", "attacks.normal.vertical"],
+      ["ichigo", ")4!da2UD/7KK]E!Ooa]y", "NUM2", "attacks.vastoLorde.cooldownSeconds"],
+      ["ichigo", "4^!13IXi:fUC|;4odMmE", "VALUE", "ammunition.costPerUse", "negate"],
+      ["ichigo", "#W@mCTaeg?nJ@Q#sLsmF", "VALUE", "attacks.vastoLorde.power"],
+      ["ichigo", "^W0nVlsUd8uRwibsn].+", "VALUE", "attacks.vastoLorde.vertical"],
+      ["ichigo", ":@Qzv=r{k^ET(m}Eg()J", "OPERAND1", "ammunition.capThreshold"],
+      ["skillbar", "]2mFv)C`l]*7:#B=qUgV", "OPERAND2", "roster.slot"],
+      ["skillbar", "kCO{dFc0bIV47L0m|T1K", "X", "roster.x"],
+      ["skillbar", "kCO{dFc0bIV47L0m|T1K", "Y", "roster.y"],
+      ["tasks", ")HDsr#yI__Ha]@7Jhvyj", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["tasks", "Ia+)LH(h*eo@y;byJH@4", "OPERAND1", "unlock.runs", "minusOne"],
+      [
+        "tasks",
+        "L?:)3U+6nC{{d1c(P-zH",
+        "OPERAND1",
+        "upgradedForm.unlock.minimumDistance",
+        "minusOne"
+      ],
+      ["tasks", "brMK{ZZyL#e$FC?H7~uk", "ITEM", "upgradedForm.unlock.equippedCharacter"],
+      ["Save", "|+U?;jhl87^(SX}M|Q?O", "STRING2", "saveToken"],
+      ["Load", "7{l1`1bQLK!Mi(fc~`nH", "STRING2", "saveToken"],
+      ["Save", "k$3^rl.#~=x4%NA}F1jO", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "+_%?8-2PNmQ]sB5$IbhD", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "goku": {
+    "contract": {
+      "unlockKind": "distanceRuns",
+      "upgradedFormId": "goku2",
+      "upgradedUnlockKind": "equippedCharacter",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["goku", "P^.d2,0jG-n^ELbOz]h[", "NUM1", "ammunition.progressionOffset"],
+      ["goku", "!HUq#9Ig?J)py$iYS;CV", "VALUE", "upgradedForm.ammunition.maximum"],
+      ["goku", ")6Sj6XIKX|~D,gvflbY,", "VALUE", "ammunition.maximum"],
+      ["goku", "{qw@mD6a5cy9|G_|Cxms", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["goku", "H;O;H*P~[#mJ97?fj}Na", "VALUE", "ammunition.costPerUse", "negate"],
+      ["goku", "p_]QEsc``icZ.*qglii2", "VALUE", "attacks.normal.power"],
+      ["goku", "MDjbDdt;4tZ8Z46^-M0{", "VALUE", "attacks.normal.vertical"],
+      ["goku", "kHqCWlFJrHwxg|8c_b0|", "NUM2", "attacks.ultraInstinct.cooldownSeconds"],
+      ["goku", "YuKIvL.Yq0VT}Hby)pIB", "VALUE", "ammunition.costPerUse", "negate"],
+      ["goku", "({/x_nU9W()k^aGLDDB(", "VALUE", "attacks.ultraInstinct.power"],
+      ["goku", "H=h-3C1viUj2~E{(lK3}", "VALUE", "attacks.ultraInstinct.vertical"],
+      ["goku", "?=dK856Lyjn|dGO4Y-/#", "OPERAND1", "ammunition.capThreshold"],
+      ["skillbar", "^Lhqo@1~)Ym3,{lxW};^", "OPERAND2", "roster.slot"],
+      ["skillbar", "uBc4xIZOeD1b*dk-oL,B", "X", "roster.x"],
+      ["skillbar", "uBc4xIZOeD1b*dk-oL,B", "Y", "roster.y"],
+      ["tasks", "teZ3$~YQ1G/z3[F(_H(^", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["tasks", "ks)DrwJgw7laH{ZfrnbW", "OPERAND1", "unlock.runs", "minusOne"],
+      [
+        "tasks",
+        "!26]s$WO1gB9wG`=i1H^",
+        "OPERAND1",
+        "upgradedForm.unlock.minimumDistance",
+        "minusOne"
+      ],
+      ["tasks", "*fQG^*ZOIIsJOU4YGbyw", "ITEM", "upgradedForm.unlock.equippedCharacter"],
+      ["Save", "I,8~zprpW/G-{%lqR[e5", "STRING2", "saveToken"],
+      ["Load", "Q(Llc|!UpMumujXOUVU8", "STRING2", "saveToken"],
+      ["Save", "%7SDP8P~(n0R$/l5we!E", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "$cr/k03PEF+,(`vNt2!{", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "naruto": {
+    "contract": {
+      "unlockKind": "distanceRuns",
+      "upgradedFormId": "naruto2",
+      "upgradedUnlockKind": "onlyCharacters",
+      "characterListSizes": [1]
+    },
+    "inputs": [
+      ["naruto", "]=r,26|Iuh9G3_gM=oI+", "NUM2", "ammunition.progressionMultiplier"],
+      ["naruto", "Ex++xt2wFX+5CS_E9a?M", "NUM1", "ammunition.progressionOffset"],
+      ["naruto", "ijzf`m-YQJ@){X3U4!#=", "VALUE", "upgradedForm.ammunition.maximum"],
+      ["naruto", "v=E=LW-8c{l-T-F@)ATI", "VALUE", "ammunition.maximum"],
+      ["naruto", "khs{~sc}Uvr6QjK)NbLC", "NUM2", "attacks.quickSummon.cooldownSeconds"],
+      ["naruto", "jeRgrV0[BhR`!JWJR^W.", "VALUE", "ammunition.costPerUse", "negate"],
+      ["naruto", "*`TNR7Zj]BV@uqe1F^^F", "VALUE", "attacks.quickSummon.power"],
+      ["naruto", "r#9CdU|*28Sc}MU@|+9~", "VALUE", "attacks.quickSummon.vertical"],
+      ["naruto", ":(}HPK!`UmxMW]GyFvm%", "NUM2", "attacks.shadowClone.cooldownSeconds"],
+      ["naruto", "G=0KSp[(Ea2r,.:,@Pi`", "VALUE", "ammunition.costPerUse", "negate"],
+      ["naruto", "d-;/q$WANZ]u17DBi6n^", "VALUE", "attacks.shadowClone.power"],
+      ["naruto", "q0=eIqXDd=mES$3Bx*Zd", "VALUE", "attacks.shadowClone.vertical"],
+      ["naruto", "pvnn4CXM}voLL/5vC|.k", "NUM2", "attacks.kurama.cooldownSeconds"],
+      ["naruto", "8=LJdtCy{].M|RfG7Klt", "VALUE", "ammunition.costPerUse", "negate"],
+      ["naruto", "hF).*s8.|*|ht6|k-pcV", "VALUE", "attacks.kurama.power"],
+      ["naruto", "trEGB[RV!`*9M9CHV1G=", "VALUE", "attacks.kurama.vertical"],
+      ["naruto", "q#K{ThcyaNLn3mcxTowY", "OPERAND1", "ammunition.capThreshold"],
+      ["skillbar", "3A%DtskK4EjmrtOy+gk/", "OPERAND2", "roster.slot"],
+      ["skillbar", "b+|r}8Et5}/Am{3p+LR7", "X", "roster.x"],
+      ["skillbar", "b+|r}8Et5}/Am{3p+LR7", "Y", "roster.y"],
+      ["tasks", "J#M5V!%ZeE)oNFb;Vpuw", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["tasks", "Zh3:FKXE~/ZjPK:no8Tw", "OPERAND1", "unlock.runs", "minusOne"],
+      ["tasks", "1k|YR/gjhj/(wOt:Q.-H", "OPERAND2", "upgradedForm.unlock.minimumDistance"],
+      ["tasks", "5s~Ix@z5XsZq4sQ7UC$Y", "OPERAND2", "upgradedForm.unlock.onlyCharacters.0"],
+      ["Save", "%W4)##R:^)^)/d~Lg6uO", "STRING2", "saveToken"],
+      ["Load", "/8!G2,e}:JLcRKaTWB/j", "STRING2", "saveToken"],
+      ["Save", "8?AKj[PCKNrhO*N9pV~P", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "zJ?fp}UsF{25G9V#=P8|", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "tanjiro": {
+    "contract": {
+      "unlockKind": "onlyCharacters",
+      "upgradedFormId": "tanjiro2",
+      "upgradedUnlockKind": "onlyCharacterRuns",
+      "characterListSizes": [1, 1]
+    },
+    "inputs": [
+      ["tanjiro", "lo%dLv1kLZBi+x6`-uc$", "VALUE", "upgradedForm.ammunition.perRun"],
+      ["tanjiro", "m;PF2B)PN`s#OkLxn(K[", "VALUE", "ammunition.perRun"],
+      ["tanjiro", "GlAuymoi/E:H1.}QP=MN", "NUM2", "attacks.waterBreathing.cooldownSeconds"],
+      ["tanjiro", "92d_R3txfo1fr2saEE4p", "VALUE", "ammunition.costPerUse", "negate"],
+      ["tanjiro", "1Tmdy|3@mF/~*]:H4Ne*", "VALUE", "attacks.waterBreathing.power"],
+      ["tanjiro", "AzIV:N@a6SjCCnhbV5GM", "VALUE", "attacks.waterBreathing.vertical"],
+      ["tanjiro", "H/!O7k!N[+0lkWVx{ZjM", "NUM2", "attacks.sunBreathing.cooldownSeconds"],
+      ["tanjiro", "h.-1L(Tx0%(Z2ec0}%aE", "VALUE", "ammunition.costPerUse", "negate"],
+      ["tanjiro", "y*:#f)_CXllv1hLUeC[u", "VALUE", "attacks.sunBreathing.power"],
+      ["tanjiro", "8CBRK!N3}9K,+4p?e6Fr", "VALUE", "attacks.sunBreathing.vertical"],
+      ["tanjiro", "rWhjWtE(G};M+aXUEd-v", "NUM2", "attacks.tripleOpening.cooldownSeconds"],
+      ["tanjiro", "sf/8VSnuHBYh;?ky|G$m", "VALUE", "ammunition.costPerUse", "negate"],
+      ["tanjiro", "c`KK[^:o8]0`m#WDjsZI", "VALUE", "attacks.tripleOpening.power"],
+      ["tanjiro", "eYn@|A,8]7`tQE!}5SzY", "VALUE", "attacks.tripleOpening.vertical"],
+      ["tanjiro", "Q0rC.-K]@u!sr[^F`gAl", "VALUE", "attacks.tripleRush.power"],
+      ["tanjiro", "f4KShhj*DZ)~cYYfr7r8", "VALUE", "attacks.tripleSlash.power"],
+      ["tanjiro", "CgrPHQzY!GP/5IGQcoxJ", "VALUE", "attacks.tripleSlash.vertical"],
+      ["tanjiro", "eCLF20yc{:OjNb6k8BBy", "VALUE", "attacks.tripleFinish.power"],
+      ["tanjiro", "?15,qtk_,9@JQ~Y9P0P1", "VALUE", "attacks.tripleFinish.verticalBoost"],
+      ["tanjiro", "xxR{kZRLwnMgC5D}Y}7}", "VALUE", "upgradedForm.ammunition.perRun"],
+      ["tanjiro", "$t[QiR65/Ks$JSpipPi}", "VALUE", "ammunition.perRun"],
+      ["skillbar", "3=Rd^HNwy%mS@X)`d=U^", "OPERAND2", "roster.slot"],
+      ["skillbar", "e]-;N+4d]5j|;.RDUIwH", "X", "roster.x"],
+      ["skillbar", "e]-;N+4d]5j|;.RDUIwH", "Y", "roster.y"],
+      ["tasks", "tgtSzZ/N7{tF.)3zAEBT", "OPERAND2", "unlock.minimumDistance"],
+      ["tasks", "lCj-qr]n7?FIZi*cn+7;", "OPERAND2", "unlock.onlyCharacters.0"],
+      [
+        "tasks",
+        "ZetPUCWj!WMyXYjY+Gbf",
+        "OPERAND1",
+        "upgradedForm.unlock.minimumDistance",
+        "minusOne"
+      ],
+      ["tasks", "aP1$9CbGp8A}JEABxg6t", "OPERAND1", "upgradedForm.unlock.runs", "minusOne"],
+      ["tasks", "B^IpEI(FLqjNnAVsH0[|", "OPERAND2", "upgradedForm.unlock.onlyCharacters.0"],
+      ["Save", "qO~Hg*#u19V?b5Z:#(o,", "STRING2", "saveToken"],
+      ["Load", "s.o9@pqI-_mhtd@):sEs", "STRING2", "saveToken"],
+      ["Save", "wuAp_4wRZ5-81P.pFHXw", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "~LfqYyf!wVM.jLAHf?M0", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "itadori": {
+    "contract": {
+      "unlockKind": "onlyCharacters",
+      "upgradedFormId": "itadori2",
+      "upgradedUnlockKind": "onlyCharacters",
+      "characterListSizes": [1, 2]
+    },
+    "inputs": [
+      ["itadori", "n83j{6KddyXU#u)@~H%Y", "VALUE", "upgradedForm.ammunition.perRun"],
+      ["itadori", "jgzb/b3/WgI)1ST*bZ.-", "VALUE", "ammunition.perRun"],
+      ["itadori", "*uEj|-z_[v-y-Amf(;]i", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["itadori", "3sN}vz8cN9+YM%*oRr+X", "VALUE", "ammunition.costPerUse", "negate"],
+      ["itadori", ".1G|y$f5)1r2;;mxGK4c", "NUM2", "timing.blackFlashWindowSeconds"],
+      ["itadori", "q%IZNUaS-gE=wWU|b#;$", "VALUE", "attacks.blackFlash.power"],
+      ["itadori", "Nndmz,e2+5WUHkikVzlL", "VALUE", "attacks.blackFlash.vertical"],
+      ["itadori", "][H0JXB}DVd/BvL4H+P6", "VALUE", "attacks.normal.power"],
+      ["itadori", "y@XZo}63AQ0/!Yj-)K6u", "VALUE", "attacks.normal.vertical"],
+      ["itadori", "n.7/Q`ds5SxPtFo{i{3q", "NUM2", "attacks.sukuna.cooldownSeconds"],
+      ["itadori", "{COTj@x[nyrj=D]0*+NN", "VALUE", "ammunition.costPerUse", "negate"],
+      ["itadori", ")VY@]~*=UMRWJW2bx,J1", "VALUE", "attacks.sukuna.power"],
+      ["itadori", "*,kKOFi=5!e-5BCQ18~h", "VALUE", "attacks.sukuna.vertical"],
+      ["skillbar", "p,k#_;gWswR;+2DdN0SK", "OPERAND2", "roster.slot"],
+      ["skillbar", "6^wGSS5sw6k]lQ#S)8F(", "X", "roster.x"],
+      ["skillbar", "6^wGSS5sw6k]lQ#S)8F(", "Y", "roster.y"],
+      ["tasks", "FRv];EL%Des8OrZ8E8kt", "OPERAND2", "unlock.minimumDistance"],
+      ["tasks", "eJ7r!2h4ZktG-w5g{1Ts", "OPERAND2", "unlock.onlyCharacters.0"],
+      ["tasks", ",U)_0*x=Y:O^`sS3O_Dl", "OPERAND2", "upgradedForm.unlock.minimumDistance"],
+      ["tasks", "G[=k)JPN0$nM!vc.u#?w", "OPERAND2", "upgradedForm.unlock.onlyCharacters.0"],
+      ["tasks", "@k4$Vj`1XlLNMCB2ET57", "OPERAND2", "upgradedForm.unlock.onlyCharacters.1"],
+      ["tasks", "M(M)hF_ZHua_x:c*vB7D", "OPERAND2", "upgradedForm.unlock.minimumDistance"],
+      ["tasks", "hL~qDz2.o+]uV|@S#9{7", "OPERAND2", "upgradedForm.unlock.onlyCharacters.0"],
+      ["tasks", "3G+~p7h6}v(Q`=HsIJ/L", "OPERAND2", "upgradedForm.unlock.onlyCharacters.1"],
+      ["Save", "7B@_o,51s*jw30k;/iyD", "STRING2", "saveToken"],
+      ["Load", "Pr#+NR-[%2(AQ2=waW{F", "STRING2", "saveToken"],
+      ["Save", "8Ez:y7fYdoY.*rm7+J,/", "STRING2", "upgradedForm.saveToken"],
+      ["Load", "JUjX~(7Meh@)Tb|Y8JCp", "STRING2", "upgradedForm.saveToken", "withBaseSaveToken"]
+    ]
+  },
+  "deku": {
+    "contract": {
+      "unlockKind": "distance",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["deku", "gXuq2J[O~UIRA[P!O)=g", "VALUE", "ammunition.perRun"],
+      ["deku", "u7:sh6dDy3r8kdmGYsCN", "NUM2", "attacks.thirdHit.cooldownSeconds"],
+      ["deku", "LB4|qEd.Xs#d52XSY6py", "VALUE", "ammunition.costPerUse", "negate"],
+      ["deku", "+ob!dbA24kW05AUSBzYt", "VALUE", "attacks.firstHit.power"],
+      ["deku", "8ogXfQg8D10JIY|,_AH-", "VALUE", "attacks.secondHit.power"],
+      ["deku", "TJ#sy^o^]S9]UwH1Evr*", "VALUE", "attacks.thirdHit.power"],
+      ["deku", "}3/(S)j`d=goezx}t@x5", "VALUE", "attacks.thirdHit.vertical"],
+      ["skillbar", "F=ak4d=e`b;;uJ?DGo5{", "OPERAND2", "roster.slot"],
+      ["skillbar", "s+yx3-Q,f#Y@HP}px_]i", "X", "roster.x"],
+      ["skillbar", "s+yx3-Q,f#Y@HP}px_]i", "Y", "roster.y"],
+      ["tasks", "(Ky+%IE7Iz!Mu?QpBec|", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["Save", ".tI5GXoD)zQT8zdrA%a#", "STRING2", "saveToken"],
+      ["Load", "q`Q`8$^;-zsvFSz$ac.y", "STRING2", "saveToken"]
+    ]
+  },
+  "levi": {
+    "contract": {
+      "unlockKind": "distance",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["levi", "M^GfSYn|;ovU3(D~vVFE", "VALUE", "ammunition.perRun"],
+      ["levi", "N3)Z[4t1mXMoyV^E3XBi", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["levi", "K5@X?|iO@UNBR0zi0S(}", "VALUE", "ammunition.costPerUse", "negate"],
+      ["levi", ")D90jM4CSD6{4rD?Wy*D", "VALUE", "attacks.normal.power"],
+      ["levi", "{3Ng]Tao%8F9Am_;i_Wv", "VALUE", "attacks.normal.vertical"],
+      ["skillbar", "W6]aTOZhM]A?GhQ?|X*`", "OPERAND2", "roster.slot"],
+      ["skillbar", "4!-}@/I@h.|3]G(WS*ZV", "X", "roster.x"],
+      ["skillbar", "4!-}@/I@h.|3]G(WS*ZV", "Y", "roster.y"],
+      ["tasks", "ZSe#?8[M+:kI!ePqas7|", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["Save", "55f#v7;+S~gtX4QM0SVm", "STRING2", "saveToken"],
+      ["Load", "k}?d=$%pWIHYihF*SO49", "STRING2", "saveToken"]
+    ]
+  },
+  "asta": {
+    "contract": {
+      "unlockKind": "onlyCharacters",
+      "characterListSizes": [1]
+    },
+    "inputs": [
+      ["asta", "DVQ^7O/nAI#6KgYQa={8", "VALUE", "ammunition.perRun"],
+      ["asta", "eeYMY4iBfQBla6GbPYBL", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["asta", "Q8Edf6hG~U@HqTM/L[Iq", "VALUE", "ammunition.costPerUse", "negate"],
+      ["asta", "4_?DK8/e1WZa+~qRm~ck", "VALUE", "attacks.normal.power"],
+      ["asta", "[?dF.{URVT]v_d!Xb2qg", "VALUE", "attacks.normal.vertical"],
+      ["skillbar", "_=vdIc3+s6ZD.(hg]Q6m", "OPERAND2", "roster.slot"],
+      ["skillbar", "WFKg1g}(mb~.;f_A?=F+", "X", "roster.x"],
+      ["skillbar", "WFKg1g}(mb~.;f_A?=F+", "Y", "roster.y"],
+      ["tasks", "rp?o2}T-4(mLLZsEhu-W", "OPERAND2", "unlock.minimumDistance"],
+      ["tasks", "aAB^GS$x9n)F*D6K(x%?", "OPERAND2", "unlock.onlyCharacters.0"],
+      ["Save", "%|]v9Eyd,T/bJ^{_?Ksw", "STRING2", "saveToken"],
+      ["Load", "/_8_4at0:Z*JBRPNgY?,", "STRING2", "saveToken"]
+    ]
+  },
+  "saitama": {
+    "contract": {
+      "unlockKind": "onlyCharacters",
+      "characterListSizes": [1]
+    },
+    "inputs": [
+      ["saitama", "V7=pPG5?Hm^*^T25*NC}", "VALUE", "ammunition.perRun"],
+      ["saitama", "h9Qq,qp#q4A`QQNk`r@L", "NUM2", "attacks.seriousPunch.cooldownSeconds"],
+      ["saitama", "I3S(0w9b/6PaVjF3^pB0", "VALUE", "ammunition.costPerUse", "negate"],
+      ["saitama", "uPe$-jh}:N1kQ3xEnY83", "VALUE", "attacks.seriousPunch.power"],
+      ["saitama", "}U6BW+B;[TNI=iipdko3", "VALUE", "attacks.seriousPunch.vertical"],
+      ["skillbar", "IH2CT3Z)2)qfK*B|+Wqj", "OPERAND2", "roster.slot"],
+      ["skillbar", "m=8#uNv/iEfVfBjfxMtm", "X", "roster.x"],
+      ["skillbar", "m=8#uNv/iEfVfBjfxMtm", "Y", "roster.y"],
+      ["tasks", "lJx}i;5`a*o^2z%pr(cH", "OPERAND2", "unlock.minimumDistance"],
+      ["tasks", "]#)SHU8H6tJwq-JuHn.O", "OPERAND2", "unlock.onlyCharacters.0"],
+      ["Save", "c947E.8c+%)b{BJ,:NhU", "STRING2", "saveToken"],
+      ["Load", "X,@do^+%Xb+Z3dek!iB(", "STRING2", "saveToken"]
+    ]
+  },
+  "gojo": {
+    "contract": {
+      "unlockKind": "onlyCharacters",
+      "characterListSizes": [1]
+    },
+    "inputs": [
+      ["gojo", "ic{voo~?APiVeLU+q|D0", "VALUE", "ammunition.perRun"],
+      ["gojo", "XW|*mK5NsJCRv,nA{!Kk", "NUM2", "attacks.hollowPurple.cooldownSeconds"],
+      ["gojo", "kCZeDt4?)9xp(Y)!{,Ag", "VALUE", "ammunition.costPerUse", "negate"],
+      ["gojo", "I_.M?c^n-6,!~--#kt5Q", "VALUE", "attacks.hollowPurple.power"],
+      ["gojo", "Ta#K?.1xbS,4M4!I~yto", "VALUE", "attacks.hollowPurple.vertical"],
+      ["skillbar", "7asitM]szydUWX-vV59^", "OPERAND2", "roster.slot"],
+      ["skillbar", "cFA0|4ln/e@u3a?6d4T`", "X", "roster.x"],
+      ["skillbar", "cFA0|4ln/e@u3a?6d4T`", "Y", "roster.y"],
+      ["tasks", "l8kUkqCp5q-cxx)^QtZ*", "OPERAND2", "unlock.minimumDistance"],
+      ["tasks", "k,o.r=j[_v!`*~*2*o75", "OPERAND2", "unlock.onlyCharacters.0"],
+      ["Save", "dE;MW+%$^zj.Stt^f7Kf", "STRING2", "saveToken"],
+      ["Load", "c1^#+3/,T08DiX(q%.fN", "STRING2", "saveToken"]
+    ]
+  },
+  "shadow": {
+    "contract": {
+      "unlockKind": "distance",
+      "characterListSizes": []
+    },
+    "inputs": [
+      ["shadow", "do{jEw+S%+EchNaJSkkt", "VALUE", "ammunition.perRun"],
+      ["shadow", "b?|%)6-)HhJ]v8%o;*Tm", "NUM2", "attacks.normal.cooldownSeconds"],
+      ["shadow", "E,4]9bpE;GZqLM%%0J5!", "VALUE", "ammunition.costPerUse", "negate"],
+      ["shadow", "w_z[mXwI`WA0:j:Q(^*#", "VALUE", "attacks.normal.power"],
+      ["shadow", "H`7180`m_Xc:G~|aq}Dj", "VALUE", "attacks.normal.vertical"],
+      ["shadow", "Dg#aD~:0ev`gP?b`]BPv", "NUM2", "attacks.atomic.cooldownSeconds"],
+      ["shadow", "pC%|dHm=1_3iLd;$9MDI", "VALUE", "ammunition.costPerUse", "negate"],
+      ["shadow", ".MZv6W;t~_.A1XuVmG0A", "VALUE", "attacks.atomic.power"],
+      ["shadow", "+LQ3=MZqKMRuNvAn4-+x", "VALUE", "attacks.atomic.vertical"],
+      ["skillbar", "3bp)vZS4Nbcr@atTGk)s", "OPERAND2", "roster.slot"],
+      ["skillbar", ";`)mU{%0;3qUmQf6e]]s", "X", "roster.x"],
+      ["skillbar", ";`)mU{%0;3qUmQf6e]]s", "Y", "roster.y"],
+      ["tasks", "Jjpqx4:P,`O-MS;OUMNz", "OPERAND1", "unlock.minimumDistance", "minusOne"],
+      ["Save", ":cvH~tQzz=bqKw8YM[qk", "STRING2", "saveToken"],
+      ["Load", "/*M_DD%T$,/ar-jTQ*+X", "STRING2", "saveToken"]
+    ]
+  }
+}

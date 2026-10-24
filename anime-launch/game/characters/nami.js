@@ -1,19 +1,20 @@
-/** Nami's balance and progression settings. Applied to the Scratch project at build time. */
-export const NAMI = Object.freeze({
+import { defineCharacter } from './schema.js';
+
+/** Final roster character; her staff scales from Saitama's serious punch. */
+export const NAMI = defineCharacter({
   id: 'nami',
+  name: 'Nami',
   description: 'Money is life',
-  referenceCharacter: 'saitama',
-  powerMultiplier: 2,
-  rosterPosition: 14,
-  rosterX: 100,
-  rosterY: -20,
-  ammo: 10,
-  cooldownSeconds: 7,
-  unlock: {
-    distanceExclusive: 600,
-    characterUsed: 'luffy',
-    task: 'Get past 600 using Luffy',
+  roster: { slot: 14, x: 100, y: -20 },
+  attacks: {
+    staff: {
+      power: { character: 'saitama', attack: 'seriousPunch', multiplier: 2 },
+      vertical: { character: 'saitama', attack: 'seriousPunch', multiplier: 2 },
+      cooldownSeconds: 7,
+    },
   },
-  // Delimiters prevent older save-code fragments from accidentally matching Nami.
+  ammunition: { perRun: 10, costPerUse: 1 },
+  unlock: { kind: 'characterUsed', distanceExclusive: 600, characterUsed: 'luffy' },
+  // Delimiters keep existing legacy save codes from matching Nami accidentally.
   saveToken: '~nami~',
 });

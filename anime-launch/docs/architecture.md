@@ -20,9 +20,21 @@ game/project.sb3                    Original gameplay, costumes, sounds
 
 ## Source and generated output
 
-`src/`, `config/`, `public/`, `game/`, and `scripts/` are authored inputs. `scripts/game/apply-nami.js` applies Nami’s readable character settings to a copy of the original project, fixing her roster, attack, unlock, tooltips, reward, and save/load support. The supplied SB3 remains untouched. `scripts/build.js` copies browser modules and public assets, bundles the runtime adapter, packages the original game, and writes `dist/`. Only the adapter requires bundling because TurboWarp inserts it as a classic script. The browser application stays as native ES modules.
+Character design values live in `game/characters/`: one file for each of the 14 roster characters, including six upgraded forms in their parent's file. `index.js` defines the roster and resolves related stats, such as Nami having twice Saitama's power.
 
-Keeping generated files out of source control avoids reviews dominated by machine-generated runtime changes. Builds read the original project without modifying it; packaging does not translate the Scratch blocks into maintainable native game-engine source.
+The build pipeline is explicit:
+
+1. `prepare-game.js` reads the original SB3 archive into memory.
+2. `apply-character-settings.js` validates the catalog and applies combat, ammo, task, roster, and save values through `legacy-character-bindings.json`.
+3. `apply-nami.js` adds missing engine wiring for the unfinished imported Nami sprite.
+4. `character-cards.js` generates every character/form tooltip from those same definitions and adds Nami's reward quote.
+5. `scripts/build.js` packages the prepared game, bundles the runtime adapter, and writes the complete site into `dist/`.
+
+The compatibility map contains engine addresses, not editable balance values. No character file contains Scratch block IDs. Default settings retain original combat/task behavior; tests compare the imported inputs against a default build. Unsupported rule shapes fail validation rather than silently changing just the displayed description.
+
+The build reads `game/project.sb3` without modifying it. Animations, movement, form-selection logic, and task orchestration still execute through the imported Scratch engine. The character catalog is not a claim that these systems have been rewritten into native JavaScript.
+
+Keeping generated output outside source control avoids reviews dominated by machine-generated runtime changes. `src/`, `game/characters/`, `config/`, `public/`, and `scripts/` are the editable source. Only the runtime adapter is bundled for classic-script insertion; the website application stays as native ES modules.
 
 ## Player lifecycle
 
@@ -54,6 +66,6 @@ Each receiver checks origin and sender identity before accepting messages. The r
 
 Add a control in `src/shared/controls.js` to generate its on-screen button and allow that key through the runtime adapter. The Scratch game must already handle that key, or you must add its behavior to `game/project.sb3`.
 
-Change UI copy in `src/app/config.js`, page content in `src/index.html`, and visual tokens in `src/styles/theme.css`. Change the stage size, frame rate, or packaging identity in `config/game.js`. Keep VM-specific implementation details inside `scratch-adapter.js`.
+Change UI copy in `src/app/config.js`, page content in `src/index.html`, and visual tokens in `src/styles/theme.css`. Change character values in `game/characters/`. Change stage size, frame rate, or packaging identity in `config/game.js`. Keep VM-specific implementation details inside `scratch-adapter.js`.
 
 To implement a native JavaScript game engine later, replace `game/project.sb3` and the TurboWarp adapter with authored gameplay systems. Refactoring the player does not perform that separate migration.
