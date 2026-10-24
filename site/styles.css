@@ -1,0 +1,346 @@
+:root {
+  color-scheme: dark;
+  --background: #101217;
+  --panel: #191c23;
+  --border: #30343d;
+  --text: #f2f4f8;
+  --muted: #9ca4b2;
+  --accent: #ccff64;
+  --bar-height: 64px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.hub-bar {
+  height: var(--bar-height);
+  min-height: var(--bar-height);
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+  background: #15181e;
+  z-index: 5;
+}
+.library-page .hub-bar {
+  position: sticky;
+  top: 0;
+}
+.hub-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+.hub-brand svg {
+  width: 30px;
+  height: 30px;
+  color: var(--accent);
+}
+.game-nav {
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.game-nav a {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.game-nav a:hover {
+  color: white;
+  background: #ffffff06;
+}
+.game-nav a[aria-current='page'] {
+  color: var(--text);
+}
+.game-nav a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  background: var(--accent);
+}
+.bar-caption {
+  margin-left: auto;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #7d8795;
+  white-space: nowrap;
+}
+.library {
+  max-width: 1200px;
+  margin: auto;
+  padding: 62px 32px 30px;
+}
+.library-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 15px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 48px);
+  letter-spacing: -1.8px;
+  line-height: 1.1;
+}
+.intro {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 15px 0 0;
+}
+.game-count {
+  font-size: 10px;
+  letter-spacing: 1.3px;
+  color: #b7c0cc;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.game-card {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--panel);
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.game-card:hover {
+  border-color: var(--game-accent);
+  transform: translateY(-3px);
+}
+.card-image {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: #131924;
+}
+.card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.game-card:hover .card-image img {
+  transform: scale(1.025);
+}
+.card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #10121765, transparent 50%);
+  pointer-events: none;
+}
+.card-genre {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  z-index: 1;
+  padding: 8px 10px;
+  background: #101217df;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  color: var(--game-accent);
+}
+.card-body {
+  padding: 24px;
+}
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.card-heading h2 {
+  font-size: 25px;
+  letter-spacing: -0.7px;
+  margin: 0;
+}
+.card-heading .play-arrow {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ffffff26;
+  border-radius: 50%;
+  color: var(--game-accent);
+  font-size: 21px;
+}
+.card-description {
+  min-height: 45px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #b1b9c5;
+  margin: 12px 0 20px;
+}
+.card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 23px;
+  padding: 0;
+  list-style: none;
+}
+.card-features li {
+  padding: 6px 8px;
+  border: 1px solid #ffffff16;
+  border-radius: 4px;
+  color: #a9b3c2;
+  font-size: 9px;
+}
+.play-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--game-accent);
+  padding: 13px 16px;
+  color: #101723;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.play-label span {
+  font-size: 18px;
+}
+.library-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 27px 0 0;
+  font-size: 10px;
+  color: #7f8999;
+}
+.player-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.game-frame {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border: 0;
+  background: var(--background);
+}
+@media (max-width: 760px) {
+  :root {
+    --bar-height: 56px;
+  }
+  .hub-bar {
+    padding: 0 15px;
+    gap: 15px;
+  }
+  .hub-brand > span,
+  .bar-caption {
+    display: none;
+  }
+  .hub-brand svg {
+    width: 25px;
+  }
+  .game-nav {
+    gap: 0;
+    flex: 1;
+  }
+  .game-nav a {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+  .game-nav a[aria-current='page']::after {
+    left: 12px;
+    right: 12px;
+  }
+  .library {
+    padding: 34px 18px 25px;
+  }
+  .library-heading {
+    margin-bottom: 25px;
+  }
+  h1 {
+    letter-spacing: -1px;
+  }
+  .intro {
+    font-size: 12px;
+  }
+  .game-count {
+    display: none;
+  }
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .card-image {
+    aspect-ratio: 16/9;
+  }
+  .card-body {
+    padding: 20px;
+  }
+  .card-description {
+    min-height: 0;
+  }
+  .card-heading h2 {
+    font-size: 23px;
+  }
+  .library-footer {
+    font-size: 9px;
+  }
+  .library-footer span:last-child {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

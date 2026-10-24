@@ -76,4 +76,4 @@ Everything persists locally under `polytrack-local-v1`. There is no backend or a
 
 ## Static hosting
 
-Deploy the contents of `dist/` to a static host. The build uses relative asset URLs and works under a GitHub Pages project subpath. This project does not modify the existing Anime Launch Pages workflow. No files are committed, pushed, or deployed automatically by local development commands.
+Deploy the contents of `dist/` to a static host. The build uses relative asset URLs and works under a GitHub Pages project subpath. The repository root Game Hub build includes this game at `/polytrack/` and publishes both games together. Run `npm run dev` from the repository root to use the shared dashboard and navigation. No files are committed, pushed, or deployed automatically by local development commands.

@@ -1,4 +1,4 @@
-name: Deploy Anime Launch to GitHub Pages
+name: Deploy Game Hub to GitHub Pages
 
 on:
   push:
@@ -16,9 +16,6 @@ jobs:
   build:
     name: Test and build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: anime-launch
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -26,12 +23,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: anime-launch/.nvmrc
+          node-version-file: .nvmrc
           cache: npm
-          cache-dependency-path: anime-launch/package-lock.json
+          cache-dependency-path: |
+            anime-launch/package-lock.json
+            polytrack/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run setup
 
       - name: Check formatting
         run: npm run format:check
@@ -39,13 +38,13 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build website and game
+      - name: Build dashboard and both games
         run: npm run build
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: anime-launch/dist
+          path: dist
 
   deploy:
     name: Publish website

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101217" />
+    <meta
+      name="description"
+      content="Choose a game: launch anime characters or race low-poly circuits. All your games, in one place."
+    />
+    <title>Game Hub — Choose a game</title>
+    <link rel="stylesheet" href="./assets/hub.css" />
+  </head>
+  <body class="library-page">
+    {{NAVIGATION}}
+    <main class="library">
+      <div class="library-heading">
+        <div>
+          <p class="eyebrow">YOUR GAME LIBRARY</p>
+          <h1>What are we playing?</h1>
+          <p class="intro">Pick a game and jump in. Switch anytime using the bar above.</p>
+        </div>
+        <span class="game-count">{{GAME_COUNT}} GAMES</span>
+      </div>
+      <section class="game-grid" aria-label="Available games">{{GAME_CARDS}}</section>
+      <footer class="library-footer">
+        <span>Your games. One place to play.</span><span>Keyboard & touch controls</span>
+      </footer>
+    </main>
+  </body>
+</html>

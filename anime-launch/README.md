@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:4173. After changing source files, run `npm run build` and refresh. `npm run preview` serves an existing build.
+These commands launch Anime Launch alone. To play both games with the dashboard, run `npm run dev` from the repository root instead. Open http://127.0.0.1:4173. After changing source files, run `npm run build` and refresh. `npm run preview` serves an existing build.
 
 ## Where to make changes
 
@@ -57,6 +57,6 @@ High scores are local to this browser. Original save/load codes remain available
 
 ## Deploy
 
-GitHub Pages deploys this application through the workflow in `../.github/workflows/pages.yml`. Push source changes to `main`; the workflow tests and builds the game, then publishes `dist/`. See the repository root README for the site URL and Pages settings. You can also deploy `dist/` to another static host. The generated game includes its TurboWarp and Scratch license notices.
+GitHub Pages deploys the repository root Game Hub, which includes Anime Launch at `/anime-launch/` and Polytrack at `/polytrack/`, through `../.github/workflows/pages.yml`. Push source changes to `main`; the workflow tests and builds the game, then publishes `dist/`. See the repository root README for the site URL and Pages settings. You can also deploy `dist/` to another static host. The generated game includes its TurboWarp and Scratch license notices.
 
 See [Architecture](docs/architecture.md) for module responsibilities and the message flow.

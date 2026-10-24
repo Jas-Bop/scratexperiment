@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#101217" />
+    <title>{{GAME_TITLE}} — Game Hub</title>
+    <link rel="stylesheet" href="../assets/hub.css" />
+  </head>
+  <body class="player-page">
+    {{NAVIGATION}}
+    <iframe
+      class="game-frame"
+      id="game-frame"
+      src="{{PLAYER_PATH}}"
+      title="{{GAME_TITLE}} game"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
+    <script src="../assets/player.js"></script>
+  </body>
+</html>
