@@ -1,0 +1,177 @@
+.arcade {
+  overflow: hidden;
+  border: 1px solid #343940;
+  border-radius: 14px;
+  background: #15181e;
+  box-shadow: 0 20px 65px #0003;
+}
+.game-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #d9dce0;
+}
+.version {
+  color: var(--color-text-muted);
+  font-size: 9px;
+}
+.stage {
+  position: relative;
+  aspect-ratio: 4/3;
+  background: #07090c;
+  max-height: 70vh;
+  min-height: 240px;
+}
+.stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  border: 0;
+}
+.launch-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.launch-screen > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.72;
+}
+.launch-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #07090ced, transparent 85%);
+}
+.launch-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #eee;
+}
+.play {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 65px;
+  background: var(--color-accent);
+  color: #101217;
+  border: 0;
+  border-radius: 8px;
+  font-size: 21px;
+  font-weight: 700;
+  padding: 19px 26px;
+  cursor: pointer;
+  box-shadow: 0 4px 30px #baff5420;
+}
+.play:hover {
+  background: #ddff9a;
+  transform: translateY(-2px);
+}
+.play span {
+  font-size: 28px;
+}
+.launch-content p {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  gap: 8px;
+  border-top: 1px solid var(--color-border);
+}
+.stage-note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.tools {
+  display: flex;
+  gap: 5px;
+}
+button {
+  font-family: inherit;
+}
+.tools button,
+.touch button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #d7d8dc;
+  padding: 9px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.tools button span {
+  font-size: 11px;
+  margin-left: 4px;
+}
+.tools button:hover,
+.touch button:hover {
+  background: #292e37;
+}
+.tools button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.touch {
+  display: none;
+  padding: 10px;
+  gap: 5px;
+  border-top: 1px solid var(--color-border);
+}
+.touch button {
+  border-color: #3c424d;
+  flex: 1;
+  touch-action: none;
+}
+.touch .launch-key {
+  flex: 3;
+  color: var(--color-accent);
+  font-size: 10px;
+}
+.arcade:fullscreen {
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  background: #07090c;
+}
+.arcade:fullscreen .stage {
+  flex: 1;
+  max-height: none;
+  min-height: 0;
+}
+.arcade:fullscreen .game-top {
+  display: none;
+}
+
+.touch button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

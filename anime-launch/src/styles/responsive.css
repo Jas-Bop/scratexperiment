@@ -1,0 +1,75 @@
+@media (pointer: coarse) {
+  .touch {
+    display: flex;
+  }
+}
+@media (max-width: 760px) {
+  .shell {
+    padding: 0 18px;
+  }
+  header {
+    height: 76px;
+  }
+  .edition,
+  .header-note {
+    display: none;
+  }
+  .intro {
+    padding: 30px 0 26px;
+  }
+  .intro-copy {
+    font-size: 12px;
+    max-width: 130px;
+  }
+  .controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .control {
+    align-items: center;
+  }
+  .tag {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .stage {
+    max-height: none;
+    min-height: 0;
+  }
+  .launch-content {
+    gap: 12px;
+    bottom: 9%;
+  }
+  .play {
+    font-size: 17px;
+    padding: 12px 20px;
+  }
+  .tools button {
+    padding: 8px;
+  }
+  .tools button span {
+    display: none;
+  }
+  .toolbar {
+    padding: 8px 12px;
+  }
+  footer p {
+    display: none;
+  }
+  h1 {
+    letter-spacing: -2px;
+  }
+  .touch {
+    display: flex;
+  }
+  .touch button {
+    padding: 10px 4px;
+  }
+  .version {
+    max-width: 170px;
+    text-align: right;
+  }
+  .stage-note {
+    font-size: 10px;
+  }
+}

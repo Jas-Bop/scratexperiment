@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@turbowarp/packager": "3.13.0"
+  },
+  "name": "anime-launch-web",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build && node scripts/serve.js",
+    "preview": "node scripts/serve.js",
+    "build": "node scripts/build.js",
+    "test": "node --test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@turbowarp/jszip": "3.11.0",
+    "esbuild": "0.28.2",
+    "prettier": "3.9.10"
+  },
+  "description": "A maintainable browser player for the original Anime Launch Scratch game.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}

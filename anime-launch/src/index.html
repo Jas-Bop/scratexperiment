@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101217" />
+    <meta
+      name="description"
+      content="Play Anime Launch. Time your launch, summon your favorite characters, and go the distance."
+    />
+    <title>Anime Launch — Play</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ccff64'/%3E%3Cpath d='M36 7 14 37h16l-3 20 23-32H34z' fill='%23101217'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="./" aria-label="Anime Launch home"
+          ><span class="logo">ϟ</span> ANIME LAUNCH<span class="edition">WEB EDITION</span></a
+        ><span class="header-note"><i></i> READY WHEN YOU ARE</span>
+      </header>
+      <main>
+        <div class="intro">
+          <div>
+            <p class="eyebrow">THE SKY IS JUST THE START</p>
+            <h1>One launch.<br /><span>No limits.</span></h1>
+          </div>
+          <p class="intro-copy">Time your shot. Call in your crew.<br />See how far you can go.</p>
+        </div>
+        <section class="arcade" aria-label="Anime Launch game">
+          <div class="game-top">
+            <span><i></i> ANIME LAUNCH</span
+            ><span class="version" id="status" role="status">LET'S FLY</span>
+          </div>
+          <div class="stage" id="stage">
+            <div class="launch-screen" id="launch-screen">
+              <img src="cover.svg" alt="Original Anime Launch title artwork" />
+              <div class="launch-shade"></div>
+              <div class="launch-content">
+                <span class="tag">YOUR NEXT HIGH SCORE STARTS HERE</span
+                ><button id="play" class="play">Play game <span aria-hidden="true">↗</span></button>
+                <p>Original game. New home.</p>
+              </div>
+            </div>
+          </div>
+          <div class="toolbar">
+            <span class="stage-note" id="stage-note">Click play to get started</span>
+            <div class="tools">
+              <button id="restart" title="Restart game" disabled>↻ <span>Restart</span></button
+              ><button id="sound" title="Toggle sound" aria-pressed="false" disabled>
+                ♫ <span>Sound on</span></button
+              ><button id="fullscreen" title="Fullscreen game">⛶ <span>Fullscreen</span></button>
+            </div>
+          </div>
+          <div
+            class="touch"
+            id="touch-controls"
+            role="group"
+            aria-label="On-screen game controls"
+          ></div>
+        </section>
+        <section class="controls" aria-label="How to play">
+          <div class="controls-title">
+            <span class="eyebrow">QUICK START</span>
+            <h2>Make it count.</h2>
+          </div>
+          <div class="control">
+            <kbd>SPACE</kbd>
+            <p>Time your launch<span>Launch & hit</span></p>
+          </div>
+          <div class="control">
+            <div class="keys"><kbd>F</kbd><kbd>1–4</kbd></div>
+            <p>Call in your crew<span>Character & skill controls</span></p>
+          </div>
+          <div class="control">
+            <kbd>R</kbd>
+            <p>Go again<span>End the current run</span></p>
+          </div>
+        </section>
+        <details>
+          <summary>A note on saving your progress <span>+</span></summary>
+          <p>
+            Use the game's original Save and Load buttons to keep your save code. Keep a copy of
+            that code for your next session. High scores are stored in this browser; they aren't a
+            shared online leaderboard.
+          </p>
+        </details>
+      </main>
+      <footer>
+        <span>ANIME LAUNCH</span>
+        <p>A little timing. A lot of distance.</p>
+        <a href="https://turbowarp.org/" target="_blank" rel="noreferrer">Powered by TurboWarp ↗</a>
+      </footer>
+    </div>
+    <script type="module" src="app/main.js"></script>
+  </body>
+</html>
