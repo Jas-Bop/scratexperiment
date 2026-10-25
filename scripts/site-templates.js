@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { GAMES } from '../site/games.js';
 
 export function escapeHtml(value) {
@@ -27,7 +28,7 @@ export function gameCards() {
     (
       game,
     ) => `<a class="game-card" href="./${game.id}/" style="--game-accent:${game.accent}" aria-label="Play ${escapeHtml(game.title)}">
-    <div class="card-image"><img src="./assets/${game.id}${game.preview.slice(game.preview.lastIndexOf('.'))}" alt="${escapeHtml(game.previewAlt)}"/><span class="card-genre">${escapeHtml(game.genre)}</span></div>
+    <div class="card-image"><img src="./assets/${escapeHtml(path.basename(game.preview))}" alt="${escapeHtml(game.previewAlt)}"/><span class="card-genre">${escapeHtml(game.genre)}</span></div>
     <div class="card-body"><div class="card-heading"><h2>${escapeHtml(game.title)}</h2><span class="play-arrow" aria-hidden="true">↗</span></div><p class="card-description">${escapeHtml(game.description)}</p>
     <ul class="card-features">${game.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul><div class="play-label">Play game <span aria-hidden="true">→</span></div></div>
   </a>`,

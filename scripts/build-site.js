@@ -37,7 +37,7 @@ try {
     });
     await cp(
       path.join(root, game.preview),
-      path.join(staging, 'assets', `${game.id}${path.extname(game.preview)}`),
+      path.join(staging, 'assets', path.basename(game.preview)),
     );
   }
   await writeFile(path.join(staging, '.nojekyll'), '');

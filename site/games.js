@@ -19,7 +19,7 @@ export const GAMES = Object.freeze([
     features: ['Time trials', 'Track editor', 'Supplied game'],
     projectDirectory: 'polytrack',
     accent: '#7ecbff',
-    preview: 'site/assets/polytrack-preview.png',
+    preview: 'site/assets/polytrack-title-screen.png',
     previewAlt: 'Polytrack game title screen',
   },
   {
