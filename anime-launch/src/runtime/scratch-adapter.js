@@ -1,3 +1,4 @@
+import { installAccountProgress } from './account-progress.js';
 import { COMMAND, MESSAGE_TYPE, isGameCommand } from '../shared/protocol.js';
 import { GAME_KEYS } from '../shared/controls.js';
 
@@ -8,7 +9,8 @@ import { GAME_KEYS } from '../shared/controls.js';
 export function installScratchAdapter(vm, host = window) {
   let muted = false;
   const origin = host.location.origin;
-  const notify = (type) => host.parent.postMessage({ type }, origin);
+  const notify = (type, payload = {}) => host.parent.postMessage({ type, ...payload }, origin);
+  const accounts = installAccountProgress(vm, notify);
 
   function applyVolume() {
     const output = vm.runtime.audioEngine?.inputNode;
@@ -21,7 +23,11 @@ export function installScratchAdapter(vm, host = window) {
     const { action, key, down } = event.data;
 
     switch (action) {
+      case COMMAND.PROFILE:
+        accounts.setProfile(event.data.progress, event.data.active);
+        break;
       case COMMAND.RESTART:
+        accounts.beforeRestart();
         vm.stopAll();
         vm.greenFlag();
         applyVolume();
@@ -60,6 +66,7 @@ export function installScratchAdapter(vm, host = window) {
   vm.runtime.on('PROJECT_LOADED', handleReady);
 
   return function dispose() {
+    accounts.dispose();
     releaseKeys();
     host.removeEventListener('message', handleMessage);
     host.removeEventListener('blur', releaseKeys);

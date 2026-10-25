@@ -27,8 +27,9 @@ The build pipeline is explicit:
 1. `prepare-game.js` reads the original SB3 archive into memory.
 2. `apply-character-settings.js` validates the catalog and applies combat, ammo, task, roster, and save values through `legacy-character-bindings.json`.
 3. `apply-nami.js` adds missing engine wiring for the unfinished imported Nami sprite.
-4. `character-cards.js` generates every character/form tooltip from those same definitions and adds Nami's reward quote.
-5. `scripts/build.js` packages the prepared game, bundles the runtime adapter, and writes the complete site into `dist/`.
+4. `apply-accounts.js` adds startup markers and the signed-in Admin load-code branch.
+5. `character-cards.js` generates every character/form tooltip from those same definitions and adds Nami's reward quote.
+6. `scripts/build.js` packages the prepared game, bundles the runtime adapter, and writes the complete site into `dist/`.
 
 The compatibility map contains engine addresses, not editable balance values. No character file contains Scratch block IDs. Default settings retain original combat/task behavior; tests compare the imported inputs against a default build. Unsupported rule shapes fail validation rather than silently changing just the displayed description.
 
@@ -38,7 +39,7 @@ Keeping generated output outside source control avoids reviews dominated by mach
 
 ## Player lifecycle
 
-`GamePlayer` exposes `load`, `restart`, `toggleMute`, `setKey`, `focus`, and `destroy`. It emits `statechange` and `volumechange`. Its iframe and state are private; UI code reads state through getters.
+`GamePlayer` exposes `load`, `restart`, `toggleMute`, `setKey`, `focus`, `setProfile`, and `destroy`. It emits `statechange`, `volumechange`, and `progresschange`. Its iframe and state are private; UI code reads state through getters.
 
 - **idle:** no game exists; Play is available.
 - **loading:** one iframe exists; duplicate loads and game inputs are ignored.
@@ -61,6 +62,14 @@ A document `load` event does not prove the game is ready. The player waits for a
 | Runtime → website | `anime-error`                                         | Runtime failed             |
 
 Each receiver checks origin and sender identity before accepting messages. The runtime releases keys on blur; touch controls also release keys on pointer cancellation and loss of capture. Restart reapplies mute so VM volume resets cannot silently unmute the player.
+
+## Local accounts
+
+`src/accounts/` owns the account UI, salted password hashes, session storage, and character saves. `src/shared/progress.js` validates permanent progression; transient position, speed, and animation state are excluded. Account switches remove the old game iframe before loading the next profile, so late messages cannot save another player's progress.
+
+`account-progress.js` uses the runtime's `AFTER_EXECUTE` event and build-added readiness markers to restore unlocks after the original startup resets. It reports changed snapshots only. Restart retains the latest snapshot and restores it after initialization. Guest progress is not written into any account. Usernames in the packaged Scratch game stay stable to preserve original save-code compatibility.
+
+The protocol additionally accepts a `profile` command containing validated progression and an `active` boolean, and returns `anime-progress` snapshots from the current game. Origin and window checks also apply to these messages. This is browser-local game state, not server authentication or authorization.
 
 ## Editing guidance
 

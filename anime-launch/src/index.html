@@ -30,6 +30,38 @@
           </div>
           <p class="intro-copy">Time your shot. Call in your crew.<br />See how far you can go.</p>
         </div>
+        <section class="account-panel" id="accounts" aria-label="Player account">
+          <div class="account-heading">
+            <div>
+              <h2 data-account-name>Playing as Guest</h2>
+              <p>Local accounts · This browser only</p>
+            </div>
+            <button type="button" data-sign-out hidden>Sign out</button>
+          </div>
+          <form class="account-form">
+            <label
+              >Username<input
+                name="username"
+                autocomplete="username"
+                minlength="3"
+                maxlength="24"
+                pattern="[a-zA-Z0-9_.\-]+"
+                required
+            /></label>
+            <label
+              >Password<input
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                minlength="8"
+                maxlength="128"
+                required
+            /></label>
+            <button type="submit" value="sign-in">Sign in</button>
+            <button type="submit" value="create">Create account</button>
+          </form>
+          <p class="account-status" data-account-status role="status" aria-live="polite"></p>
+        </section>
         <section class="arcade" aria-label="Anime Launch game">
           <div class="game-top">
             <span><i></i> ANIME LAUNCH</span
@@ -83,9 +115,11 @@
         <details>
           <summary>A note on saving your progress <span>+</span></summary>
           <p>
-            Use the game's original Save and Load buttons to keep your save code. Keep a copy of
-            that code for your next session. High scores are stored in this browser; they aren't a
-            shared online leaderboard.
+            Signed-in accounts save character unlocks automatically in this browser. Guest players
+            can use the game's original Save and Load buttons. Keep a save code as a backup;
+            clearing browser data removes local accounts and their progress. Accounts do not sync
+            across devices. High scores are local to this browser; they aren't a shared online
+            leaderboard.
           </p>
         </details>
       </main>

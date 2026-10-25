@@ -101,3 +101,22 @@ test('destroy removes the game, timers, and message listener', () => {
   assert.equal(timers.size, 0);
   assert.equal(frames[0].removed, true);
 });
+
+test('switching accounts removes the previous game and rejects its late progress', () => {
+  const { player, frames, message } = createHarness();
+  player.setProfile({ char_nami_yn: 1 });
+  player.load();
+  message({ type: MESSAGE_TYPE.READY });
+  assert.ok(frames[0].messages.some((entry) => entry.action === 'profile' && entry.active));
+  const oldFrame = frames[0];
+  player.setProfile({});
+  assert.equal(oldFrame.removed, true);
+  player.load();
+  message({ type: MESSAGE_TYPE.READY });
+  message({ type: MESSAGE_TYPE.PROGRESS, progress: { char_nami_yn: 1 } }, oldFrame.contentWindow);
+  assert.deepEqual(player.progress, {});
+  message({ type: MESSAGE_TYPE.PROGRESS, progress: { 'power X': 999 } });
+  assert.deepEqual(player.progress, {});
+  message({ type: MESSAGE_TYPE.PROGRESS, progress: { char_luffy_yn: 1 } });
+  assert.deepEqual(player.progress, { char_luffy_yn: 1 });
+});

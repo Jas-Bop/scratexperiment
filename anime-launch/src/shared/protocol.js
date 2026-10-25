@@ -1,3 +1,4 @@
+import { isProgress } from './progress.js';
 import { GAME_KEYS } from './controls.js';
 
 // This is the only contract between the website and its embedded game runtime.
@@ -5,6 +6,7 @@ export const MESSAGE_TYPE = Object.freeze({
   COMMAND: 'anime-control',
   READY: 'anime-ready',
   ERROR: 'anime-error',
+  PROGRESS: 'anime-progress',
 });
 
 export const COMMAND = Object.freeze({
@@ -12,6 +14,7 @@ export const COMMAND = Object.freeze({
   MUTE: 'mute',
   KEY: 'key',
   FOCUS: 'focus',
+  PROFILE: 'profile',
 });
 
 /** Reject unknown commands and invalid payloads before touching the game VM. */
@@ -19,6 +22,8 @@ export function isGameCommand(message) {
   if (!message || message.type !== MESSAGE_TYPE.COMMAND) return false;
 
   switch (message.action) {
+    case COMMAND.PROFILE:
+      return typeof message.active === 'boolean' && isProgress(message.progress);
     case COMMAND.RESTART:
     case COMMAND.FOCUS:
       return true;

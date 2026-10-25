@@ -1,3 +1,4 @@
+import { mountAccountPanel } from '../accounts/account-panel.js';
 import { PLAYER_CONFIG } from './config.js';
 import { GamePlayer } from '../player/game-player.js';
 import { renderPlayer } from './player-view.js';
@@ -21,6 +22,7 @@ const listeners = new AbortController();
 const options = { signal: listeners.signal };
 const render = () => renderPlayer(player, elements);
 
+mountAccountPanel(document.getElementById('accounts'), player, listeners.signal);
 mountTouchControls(elements.touchControls, player, listeners.signal);
 player.addEventListener('statechange', render, options);
 player.addEventListener('volumechange', render, options);

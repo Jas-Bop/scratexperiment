@@ -18,7 +18,7 @@ try {
   await rm(staging, { recursive: true, force: true });
   await mkdir(staging, { recursive: true });
   await cp(path.join(root, 'src/index.html'), path.join(staging, 'index.html'));
-  for (const folder of ['app', 'player', 'shared', 'styles']) {
+  for (const folder of ['app', 'accounts', 'player', 'shared', 'styles']) {
     await cp(path.join(root, 'src', folder), path.join(staging, folder), { recursive: true });
   }
   await cp(path.join(root, 'public'), staging, { recursive: true });

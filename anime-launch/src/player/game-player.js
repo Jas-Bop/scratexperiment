@@ -1,3 +1,4 @@
+import { isProgress } from '../shared/progress.js';
 import { COMMAND, MESSAGE_TYPE, isGameCommand } from '../shared/protocol.js';
 
 /**
@@ -8,6 +9,7 @@ export class GamePlayer extends EventTarget {
   #frame = null;
   #state = 'idle';
   #muted = false;
+  #profile = null;
   #timeoutId;
   #mount;
   #config;
@@ -46,6 +48,17 @@ export class GamePlayer extends EventTarget {
     this.#frame = frame;
     this.#timeoutId = this.#host.setTimeout(() => this.#fail(), this.#config.loadTimeoutMs);
     this.#mount.appendChild(frame);
+  }
+
+  setProfile(progress = null) {
+    if (progress !== null && !isProgress(progress)) throw new Error('Invalid account progress');
+    this.#removeFrame();
+    this.#profile = progress === null ? null : { ...progress };
+    this.#setState('idle');
+  }
+
+  get progress() {
+    return this.#profile === null ? null : { ...this.#profile };
   }
 
   restart() {
@@ -88,6 +101,17 @@ export class GamePlayer extends EventTarget {
     if (event.origin !== this.#host.location.origin) return;
     if (!this.#frame || event.source !== this.#frame.contentWindow) return;
 
+    if (
+      event.data?.type === MESSAGE_TYPE.PROGRESS &&
+      this.#state === 'ready' &&
+      this.#profile !== null
+    ) {
+      if (!isProgress(event.data.progress)) return;
+      this.#profile = { ...event.data.progress };
+      this.dispatchEvent(new Event('progresschange'));
+      return;
+    }
+
     if (event.data?.type === MESSAGE_TYPE.ERROR) {
       this.#fail();
       return;
@@ -96,6 +120,7 @@ export class GamePlayer extends EventTarget {
     if (event.data?.type !== MESSAGE_TYPE.READY || this.#state !== 'loading') return;
     this.#host.clearTimeout(this.#timeoutId);
     this.#setState('ready');
+    this.#send(COMMAND.PROFILE, { active: this.#profile !== null, progress: this.#profile ?? {} });
     this.#send(COMMAND.MUTE, { muted: this.#muted });
     this.focus();
   };

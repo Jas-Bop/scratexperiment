@@ -55,6 +55,24 @@ Click Play, then press any key or tap the Space control to start the game. Space
 
 High scores are local to this browser. Original save/load codes remain available. Keep the `storageId` and `username` in `config/game.js` stable to preserve high-score storage and save-code compatibility.
 
+## Player accounts and Admin mode
+
+Use **Create account** above the game to choose a username (for example, `Admin`) and a password of 8–128 characters. Sign in before playing to save character unlocks automatically. Guest play and original save codes remain available.
+
+To activate Admin mode, sign in, start the game, choose its original **Load** button, and enter `14876178431werW`. This unlocks all characters, including Nami, every upgraded form, and maximum ammunition progression. The account gains an Admin badge and retains these unlocks after signing in again or restarting.
+
+Accounts are local to this browser and website origin. They do not sync across devices, and clearing browser data removes them. Passwords use unique salts and PBKDF2-SHA-256 hashes; plaintext passwords are not saved. Sign-in persists for the current browser tab's session. High scores retain the original browser-wide behavior.
+
+Admin mode is a local game unlock feature, not a server authorization role. A shared account service and protected administrative permissions would require a backend; GitHub Pages serves static files.
+
+Editable account modules:
+
+- `src/accounts/account-store.js`: credentials, local storage, sessions, and per-account character progress.
+- `src/accounts/account-panel.js`: sign-up, sign-in, sign-out, and save status.
+- `src/shared/progress.js`: the allowed permanent progression fields.
+- `src/runtime/account-progress.js`: waits for game initialization, restores progression, and reports changed unlocks.
+- `scripts/game/apply-accounts.js`: the admin load code, unlock behavior, and startup readiness markers. Change the code here, then rebuild.
+
 ## Deploy
 
 GitHub Pages deploys the repository root Game Hub, which includes Anime Launch at `/anime-launch/` and Polytrack at `/polytrack/`, through `../.github/workflows/pages.yml`. Push source changes to `main`; the workflow tests and builds the game, then publishes `dist/`. See the repository root README for the site URL and Pages settings. You can also deploy `dist/` to another static host. The generated game includes its TurboWarp and Scratch license notices.
