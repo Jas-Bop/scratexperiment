@@ -360,3 +360,22 @@ h1 {
     transition: none !important;
   }
 }
+
+.account-page {
+  max-width: 760px;
+  margin: 48px auto;
+  padding: 0 20px;
+  --color-border: var(--border);
+  --color-surface: var(--panel);
+  --color-text: var(--text);
+  --color-text-muted: var(--muted);
+  --color-accent: var(--accent);
+}
+.account-page .account-panel {
+  margin-top: 28px;
+}
+.account-explainer {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}

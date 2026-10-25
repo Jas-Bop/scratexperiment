@@ -19,7 +19,7 @@ export function navigation(current, prefix) {
   return `<header class="hub-bar">
     <a class="hub-brand" href="${prefix}" aria-label="Game Hub home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 10h14c3 0 5 4 6 10s-4 7-7 2l-2-1h-8l-2 1c-3 5-8 4-7-2s3-10 6-10Z" stroke="currentColor" stroke-width="2"/><path d="M10 13v7m-3.5-3.5h7" stroke="currentColor" stroke-width="2"/><circle cx="22" cy="15" r="1.4" fill="currentColor"/><circle cx="25" cy="19" r="1.4" fill="currentColor"/></svg><span>GAME HUB</span></a>
     <nav class="game-nav" aria-label="Game dashboard">${entries.map((entry) => `<a href="${escapeHtml(entry.href)}"${entry.id === current ? ' aria-current="page"' : ''}>${escapeHtml(entry.title)}</a>`).join('')}</nav>
-    ${current === 'anime-launch' ? `<a class="account-link" data-account-link href="${prefix}games/anime-launch/#accounts" target="game-frame">Account</a>` : '<span class="bar-caption">PICK. PLAY. REPEAT.</span>'}
+    <a class="account-link" href="${prefix}account/"${current === 'account' ? ' aria-current="page"' : ''}>Account</a>
   </header>`;
 }
 

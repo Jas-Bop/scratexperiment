@@ -23,7 +23,7 @@ function accountHarness() {
 }
 
 test('accounts hash passwords with unique salts, reject duplicates, and authenticate case-insensitive usernames', async () => {
-  const { store, storage } = accountHarness();
+  const { store, storage, session } = accountHarness();
   const first = await store.create('Admin', 'a-long-password');
   const second = await store.create('Player', 'a-long-password');
   const records = JSON.parse(storage.getItem('anime-launch.accounts.v1'));
@@ -36,7 +36,7 @@ test('accounts hash passwords with unique salts, reject duplicates, and authenti
   await assert.rejects(store.signIn('Admin', 'wrong-password'), /Incorrect/);
   assert.equal(store.current(), null);
   assert.equal((await store.signIn('admin', 'a-long-password')).id, first.id);
-  const recreated = new AccountStore(storage, store.session, webcrypto);
+  const recreated = new AccountStore(storage, session, webcrypto);
   assert.equal(recreated.current().id, first.id);
 });
 
@@ -126,4 +126,13 @@ test('runtime waits for Scratch initialization, restores admin, and retains it a
   assert.equal(variables.task_ammo_increase.value, 7);
   accounts.dispose();
   assert.equal(runtime.listenerCount('AFTER_EXECUTE'), 0);
+});
+
+test('damaged stored accounts are reported without replacing the original data', () => {
+  const { store, storage } = accountHarness();
+  for (const raw of ['not JSON', '{"wrong":"shape"}', '[{"id":"missing-name"}]']) {
+    storage.setItem('anime-launch.accounts.v1', raw);
+    assert.throws(() => store.current(), /storage is damaged/);
+    assert.equal(storage.getItem('anime-launch.accounts.v1'), raw);
+  }
 });

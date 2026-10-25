@@ -1,0 +1,32 @@
+<section class="account-panel" id="accounts" aria-label="Player account">
+  <div class="account-heading">
+    <div>
+      <h2 data-account-name>Playing as Guest</h2>
+      <p>Game Hub account · This browser only</p>
+    </div>
+    <button type="button" data-sign-out hidden>Sign out</button>
+  </div>
+  <form class="account-form">
+    <label
+      >Username<input
+        name="username"
+        autocomplete="username"
+        minlength="3"
+        maxlength="24"
+        pattern="[a-zA-Z0-9_.\-]+"
+        required
+    /></label>
+    <label
+      >Password<input
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        minlength="8"
+        maxlength="128"
+        required
+    /></label>
+    <button type="submit" value="sign-in">Sign in</button>
+    <button type="submit" value="create">Create account</button>
+  </form>
+  <p class="account-status" data-account-status role="status" aria-live="polite"></p>
+</section>

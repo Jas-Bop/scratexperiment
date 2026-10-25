@@ -57,9 +57,11 @@ High scores are local to this browser. Original save/load codes remain available
 
 ## Player accounts and Admin mode
 
-Use **Account** in the Game Hub top bar to jump to the sign-in form. Use **Create account** above the game to choose a username (for example, `Admin`) and a password of 8–128 characters. Sign in before playing to save character unlocks automatically. Guest play and original save codes remain available.
+Use **Account** in the Game Hub top bar to open the shared website sign-in page. Use **Create account** above the game to choose a username (for example, `Admin`) and a password of 8–128 characters. Sign in before playing to save character unlocks automatically. Guest play and original save codes remain available.
 
-To activate Admin mode, start the game, choose its original **Load** button, and enter `14876178431werW`. The code works for Guest players too; sign in before loading it to save the unlocks automatically. This unlocks all characters, including Nami, every upgraded form, and maximum ammunition progression. The account gains an Admin badge and retains these unlocks after signing in again or restarting.
+The Master Admin account **Shadesters** unlocks every character automatically after sign-in, without entering a load code.
+
+To activate Admin mode on another profile, start the game, choose its original **Load** button, and enter `14876178431werW`. The code works for Guest players too; sign in before loading it to save the unlocks automatically. This unlocks all characters, including Nami, every upgraded form, and maximum ammunition progression. The account gains an Admin badge and retains these unlocks after signing in again or restarting.
 
 Accounts are local to this browser and website origin. They do not sync across devices, and clearing browser data removes them. Passwords use unique salts and PBKDF2-SHA-256 hashes; plaintext passwords are not saved. Sign-in persists for the current browser tab's session. High scores retain the original browser-wide behavior.
 
@@ -67,9 +69,9 @@ Admin mode is a local game unlock feature, not a server authorization role. A sh
 
 Editable account modules:
 
-- `src/accounts/account-store.js`: credentials, local storage, sessions, and per-account character progress.
-- `src/accounts/account-panel.js`: sign-up, sign-in, sign-out, and save status.
-- `src/shared/progress.js`: the allowed permanent progression fields.
+- `../shared/accounts/account-store.js`: account workflows, with separate password, repository, policy, and settings modules. `src/accounts/account-store.js` retains a compatibility export.
+- `../shared/accounts/panel.js`: shared sign-up, sign-in, sign-out, and save status; the game retains a compatibility export.
+- `../shared/anime-progress.js`: allowed permanent progression fields, re-exported by `src/shared/progress.js`.
 - `src/runtime/account-progress.js`: waits for game initialization, restores progression, and reports changed unlocks.
 - `scripts/game/apply-accounts.js`: the admin load code, unlock behavior, and startup readiness markers. Change the code here, then rebuild.
 

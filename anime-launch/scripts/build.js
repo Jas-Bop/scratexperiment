@@ -2,7 +2,7 @@ import { cp, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { build } from 'esbuild';
+import { bundleJavaScript } from '../../scripts/build-tools.js';
 import JSZip from '@turbowarp/jszip';
 import { GAME_CONFIG } from '../config/game.js';
 import { prepareGame } from './game/prepare-game.js';
@@ -17,18 +17,31 @@ const staging = path.join(root, '.build');
 try {
   await rm(staging, { recursive: true, force: true });
   await mkdir(staging, { recursive: true });
-  await cp(path.join(root, 'src/index.html'), path.join(staging, 'index.html'));
-  for (const folder of ['app', 'accounts', 'player', 'shared', 'styles']) {
+  const page = await readFile(path.join(root, 'src/index.html'), 'utf8');
+  const accountPanel = await readFile(path.join(root, '../shared/accounts/panel.html'), 'utf8');
+  await writeFile(
+    path.join(staging, 'index.html'),
+    page.replace('{{ACCOUNT_PANEL}}', accountPanel),
+  );
+  for (const folder of ['styles']) {
     await cp(path.join(root, 'src', folder), path.join(staging, folder), { recursive: true });
   }
+  await cp(
+    path.join(root, '../shared/accounts/panel.css'),
+    path.join(staging, 'styles/accounts.css'),
+  );
   await cp(path.join(root, 'public'), staging, { recursive: true });
 
-  const adapter = await build({
+  await bundleJavaScript({
+    entryPoints: [path.join(root, 'src/app/main.js')],
+    format: 'esm',
+    outfile: path.join(staging, 'app/main.js'),
+  });
+
+  const adapter = await bundleJavaScript({
     entryPoints: [path.join(root, 'src/runtime/entry.js')],
-    bundle: true,
     write: false,
     format: 'iife',
-    target: 'es2020',
     minify: false,
   });
 

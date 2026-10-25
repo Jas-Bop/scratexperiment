@@ -1,4 +1,4 @@
-import { isProgressVariable } from '../shared/progress.js';
+import { ANIME_PROGRESS, isProgressVariable, unlockAllCharacters } from '../shared/progress.js';
 import { MESSAGE_TYPE } from '../shared/protocol.js';
 
 /** Restore after the original Scratch startup scripts finish, then observe permanent unlocks. */
@@ -16,14 +16,13 @@ export function installAccountProgress(vm, notify) {
     profile = active ? { ...progress } : null;
     needsRestore = true;
     previous = '';
-    set('web_account_active', active ? 1 : 0);
+    set(ANIME_PROGRESS.activeAccount, active ? 1 : 0);
   }
 
   function beforeRestart() {
     if (profile && !needsRestore) profile = snapshot();
     needsRestore = true;
-    set('web_accounts_tasks_ready', 0);
-    set('web_accounts_characters_ready', 0);
+    for (const marker of ANIME_PROGRESS.startupMarkers) set(marker, 0);
   }
 
   function snapshot() {
@@ -37,14 +36,17 @@ export function installAccountProgress(vm, notify) {
   function afterStep() {
     const all = variables();
     if (
-      !['web_accounts_tasks_ready', 'web_accounts_characters_ready'].every((name) =>
+      !ANIME_PROGRESS.startupMarkers.every((name) =>
         all.some((item) => item.name === name && Number(item.value) === 1),
       )
     )
       return;
     if (needsRestore) {
       for (const [name, value] of Object.entries(profile ?? {})) set(name, value);
-      set('web_account_active', profile ? 1 : 0);
+      if (profile?.[ANIME_PROGRESS.adminFlag] === 1) {
+        unlockAllCharacters(all);
+      }
+      set(ANIME_PROGRESS.activeAccount, profile ? 1 : 0);
       needsRestore = false;
     }
     if (!profile) return;

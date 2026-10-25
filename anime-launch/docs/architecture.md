@@ -35,7 +35,7 @@ The compatibility map contains engine addresses, not editable balance values. No
 
 The build reads `game/project.sb3` without modifying it. Animations, movement, form-selection logic, and task orchestration still execute through the imported Scratch engine. The character catalog is not a claim that these systems have been rewritten into native JavaScript.
 
-Keeping generated output outside source control avoids reviews dominated by machine-generated runtime changes. `src/`, `game/characters/`, `config/`, `public/`, and `scripts/` are the editable source. Only the runtime adapter is bundled for classic-script insertion; the website application stays as native ES modules.
+Keeping generated output outside source control avoids reviews dominated by machine-generated runtime changes. `src/`, `game/characters/`, `config/`, `public/`, and `scripts/` are the editable source. The runtime adapter is bundled for classic-script insertion. The application entry is bundled as an ES module so it can reuse the repository-wide account store without copying shared source into the published game folder.
 
 ## Player lifecycle
 
@@ -65,7 +65,7 @@ Each receiver checks origin and sender identity before accepting messages. The r
 
 ## Local accounts
 
-`src/accounts/` owns the account UI, salted password hashes, session storage, and character saves. `src/shared/progress.js` validates permanent progression; transient position, speed, and animation state are excluded. Account switches remove the old game iframe before loading the next profile, so late messages cannot save another player's progress.
+`shared/accounts/` in the repository root owns salted password hashes, session storage, the master profile, and character saves; `src/accounts/` provides compatibility exports; the shared account UI, copy, and styles live in the root `shared/accounts/` folder. `shared/anime-progress.js`, re-exported by `src/shared/progress.js`, validates permanent progression; transient position, speed, and animation state are excluded. Account switches remove the old game iframe before loading the next profile, so late messages cannot save another player's progress.
 
 `account-progress.js` uses the runtime's `AFTER_EXECUTE` event and build-added readiness markers to restore unlocks after the original startup resets. It reports changed snapshots only. Restart retains the latest snapshot and restores it after initialization. Guest progress is not written into any account. Usernames in the packaged Scratch game stay stable to preserve original save-code compatibility.
 

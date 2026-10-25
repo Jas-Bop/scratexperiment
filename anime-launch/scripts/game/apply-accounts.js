@@ -1,3 +1,4 @@
+import { ANIME_PROGRESS, isCharacterUnlock } from '../../src/shared/progress.js';
 import { ensureVariable, findHat, ScratchBlocks, targetNamed } from './scratch-blocks.js';
 
 /** Admin is a local game profile, not an authorization role for the website. */
@@ -5,16 +6,15 @@ export const ADMIN_LOAD_CODE = '14876178431werW';
 
 export function applyAccounts(project) {
   for (const name of [
-    'web_admin_yn',
-    'web_account_active',
-    'web_accounts_tasks_ready',
-    'web_accounts_characters_ready',
+    ANIME_PROGRESS.adminFlag,
+    ANIME_PROGRESS.activeAccount,
+    ...ANIME_PROGRESS.startupMarkers,
   ]) {
     ensureVariable(project, name, 0);
   }
   for (const [sprite, marker] of [
-    ['tasks', 'web_accounts_tasks_ready'],
-    ['anime', 'web_accounts_characters_ready'],
+    ['tasks', ANIME_PROGRESS.startupMarkers[0]],
+    ['anime', ANIME_PROGRESS.startupMarkers[1]],
   ]) {
     const target = targetNamed(project, sprite);
     const builder = new ScratchBlocks(project, target, `accounts:${sprite}`);
@@ -47,11 +47,14 @@ export function applyAccounts(project) {
   const stage = project.targets.find((target) => target.isStage);
   const unlocks = Object.values(stage.variables)
     .map(([name]) => name)
-    .filter((name) => /^char_[a-z0-9]+_yn$/.test(name) || /^task_[a-z0-9]+_complete$/.test(name))
+    .filter(isCharacterUnlock)
     .map((name) => builder.set(name, builder.literal(1)));
   unlocks.push(
-    builder.set('task_ammo_increase', builder.literal(7)),
-    builder.set('web_admin_yn', builder.literal(1)),
+    builder.set(
+      ANIME_PROGRESS.ammunitionLevel,
+      builder.literal(ANIME_PROGRESS.maximumAmmunitionLevel),
+    ),
+    builder.set(ANIME_PROGRESS.adminFlag, builder.literal(1)),
   );
   const branch = builder.if(isAdminCode(), builder.chain(...unlocks));
   const originalLoad = guard.inputs.SUBSTACK[1];
