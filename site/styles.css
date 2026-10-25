@@ -89,6 +89,15 @@ a:focus-visible {
   height: 3px;
   background: var(--accent);
 }
+.account-link {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--accent);
+}
 .bar-caption {
   margin-left: auto;
   font-size: 9px;

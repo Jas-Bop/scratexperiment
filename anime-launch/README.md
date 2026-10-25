@@ -57,9 +57,9 @@ High scores are local to this browser. Original save/load codes remain available
 
 ## Player accounts and Admin mode
 
-Use **Create account** above the game to choose a username (for example, `Admin`) and a password of 8–128 characters. Sign in before playing to save character unlocks automatically. Guest play and original save codes remain available.
+Use **Account** in the Game Hub top bar to jump to the sign-in form. Use **Create account** above the game to choose a username (for example, `Admin`) and a password of 8–128 characters. Sign in before playing to save character unlocks automatically. Guest play and original save codes remain available.
 
-To activate Admin mode, sign in, start the game, choose its original **Load** button, and enter `14876178431werW`. This unlocks all characters, including Nami, every upgraded form, and maximum ammunition progression. The account gains an Admin badge and retains these unlocks after signing in again or restarting.
+To activate Admin mode, start the game, choose its original **Load** button, and enter `14876178431werW`. The code works for Guest players too; sign in before loading it to save the unlocks automatically. This unlocks all characters, including Nami, every upgraded form, and maximum ammunition progression. The account gains an Admin badge and retains these unlocks after signing in again or restarting.
 
 Accounts are local to this browser and website origin. They do not sync across devices, and clearing browser data removes them. Passwords use unique salts and PBKDF2-SHA-256 hashes; plaintext passwords are not saved. Sign-in persists for the current browser tab's session. High scores retain the original browser-wide behavior.
 

@@ -34,12 +34,9 @@ export function applyAccounts(project) {
     throw new Error('The original Load flow has changed.');
   }
   const isAdminCode = () =>
-    builder.and(
-      builder.equals(
-        builder.reporter(builder.block('sensing_answer')),
-        builder.literal(ADMIN_LOAD_CODE),
-      ),
-      builder.equals(builder.variable('web_account_active'), builder.literal(1)),
+    builder.equals(
+      builder.reporter(builder.block('sensing_answer')),
+      builder.literal(ADMIN_LOAD_CODE),
     );
   const original = guard.inputs.CONDITION;
   guard.inputs.CONDITION = builder.reporter(

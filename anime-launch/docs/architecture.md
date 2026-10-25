@@ -27,7 +27,7 @@ The build pipeline is explicit:
 1. `prepare-game.js` reads the original SB3 archive into memory.
 2. `apply-character-settings.js` validates the catalog and applies combat, ammo, task, roster, and save values through `legacy-character-bindings.json`.
 3. `apply-nami.js` adds missing engine wiring for the unfinished imported Nami sprite.
-4. `apply-accounts.js` adds startup markers and the signed-in Admin load-code branch.
+4. `apply-accounts.js` adds startup markers and the Admin load-code branch.
 5. `character-cards.js` generates every character/form tooltip from those same definitions and adds Nami's reward quote.
 6. `scripts/build.js` packages the prepared game, bundles the runtime adapter, and writes the complete site into `dist/`.
 
