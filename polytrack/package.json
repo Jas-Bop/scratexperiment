@@ -1,25 +1,13 @@
 {
-  "name": "polytrack-inspired-racer",
+  "name": "polytrack-html-player",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "An original low-poly time-trial racer with editable tracks and local ghosts.",
+  "description": "The supplied Polytrack HTML game page, integrated with Game Hub.",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 4174",
-    "build": "vite build --base=./",
-    "preview": "vite preview --host 127.0.0.1 --port 4174",
-    "test": "node --test tests/*.test.js",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "build": "node scripts/build.js"
   },
   "engines": {
     "node": ">=22.17"
-  },
-  "dependencies": {
-    "three": "0.186.1"
-  },
-  "devDependencies": {
-    "prettier": "3.9.10",
-    "vite": "8.3.5"
   }
 }

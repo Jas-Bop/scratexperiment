@@ -4,3 +4,6 @@
 **/package-lock.json
 **/public/
 **/*.sb3
+# Preserve the supplied third-party launcher as provided.
+drive-mad/index.html
+polytrack/index.html

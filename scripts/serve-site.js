@@ -13,6 +13,7 @@ const contentTypes = {
   '.svg': 'image/svg+xml',
   '.zip': 'application/zip',
   '.png': 'image/png',
+  '.jpg': 'image/jpeg',
   '.json': 'application/json; charset=utf-8',
 };
 
@@ -62,5 +63,5 @@ server.on('error', (error) => {
 });
 server.listen(port, '127.0.0.1', () => {
   console.log(`Game Hub: http://127.0.0.1:${port}`);
-  console.log('Dashboard and both games are available here. Rebuild after editing source.');
+  console.log('Dashboard and all games are available here. Rebuild after editing source.');
 });

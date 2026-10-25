@@ -1,262 +1,167 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#111c34" />
-    <meta
-      name="description"
-      content="An original low-poly time-trial racer. Drive three courses, race your ghost, and build your own tracks."
-    />
-    <title>Polytrack — Local Edition</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23111c34'/%3E%3Cpath d='M12 44 27 15h25L37 44z' fill='%23c9ff37'/%3E%3Cpath d='m26 38 8-16h10l-8 16z' fill='%23111c34'/%3E%3C/svg%3E"
-    />
-  </head>
-  <body data-screen="menu">
-    <canvas id="world" aria-label="3D racing game"></canvas>
-    <div class="vignette" aria-hidden="true"></div>
-    <div id="loading" class="loading">
-      <span class="loading-mark">P/</span>
-      <p>BUILDING THE GRID</p>
-    </div>
-    <main id="menu" class="menu" hidden>
-      <header class="menu-header">
-        <span class="brand-mark">P/</span><span>LOCAL EDITION <i></i> LOCAL RECORDS</span
-        ><button
-          id="fullscreen"
-          class="icon-button"
-          aria-label="Toggle fullscreen"
-          title="Fullscreen"
-        >
-          ⛶
-        </button>
-      </header>
-      <section class="menu-main">
-        <p class="eyebrow"><span></span> EVERY MILLISECOND COUNTS</p>
-        <h1>POLY<span>TRACK</span><b>TIME ATTACK</b></h1>
-        <p class="menu-copy">Just you. The track. The clock.</p>
-        <div class="selected-heading">
-          <span id="selected-number">01</span>
-          <div>
-            <h2 id="selected-name">Alpine Sprint</h2>
-            <p id="selected-subtitle"></p>
-          </div>
-        </div>
-        <div class="menu-actions">
-          <button id="race-button" class="button primary">RACE NOW <span>↗</span></button
-          ><button id="editor-button" class="button secondary">TRACK EDITOR <span>＋</span></button
-          ><button id="settings-button" class="text-button">
-            GARAGE & SETTINGS <span>→</span>
-          </button>
-        </div>
-      </section>
-      <div class="scene-caption">
-        <span class="tiny-label">SELECTED CIRCUIT</span
-        ><strong id="scene-name">ALPINE SPRINT</strong><span id="scene-length"></span>
-      </div>
-      <section class="track-select">
-        <div class="section-label">
-          <span>CHOOSE YOUR CIRCUIT</span><span id="track-count">03 TRACKS</span>
-        </div>
-        <div id="track-list" class="track-list"></div>
-      </section>
-      <footer class="menu-footer">
-        <span><kbd>W A S D</kbd> / <kbd>↑ ← ↓ →</kbd> DRIVE</span
-        ><span><kbd>R</kbd> RESTART &nbsp; <kbd>ESC</kbd> PAUSE</span
-        ><span>ORIGINAL LOCAL BUILD · v1.0</span>
-      </footer>
-    </main>
-    <section id="hud" class="hud" aria-label="Race dashboard" hidden>
-      <div class="race-top">
-        <div>
-          <button id="exit-race" class="hud-button">↖ EXIT</button
-          ><button id="restart-race" class="hud-button">↻ RESTART</button
-          ><button id="pause-race" class="hud-button" aria-label="Pause race">Ⅱ</button>
-        </div>
-        <div class="race-track"><span id="hud-track"></span><small id="hud-record"></small></div>
-      </div>
-      <div id="start-hint" class="start-hint">
-        <strong>YOUR LAP STARTS HERE.</strong
-        ><span>Press <kbd>W</kbd> or <kbd>↑</kbd> to drive. Beat the clock.</span>
-      </div>
-      <div class="left-instruments">
-        <span class="tiny-label">CIRCUIT MAP</span
-        ><canvas id="minimap" width="320" height="220" aria-label="Track map"></canvas>
-        <div class="checkpoint-count">
-          ⚑ <strong id="checkpoint-count">0 / 3</strong><span>CHECKPOINTS</span>
-        </div>
-      </div>
-      <div class="timing">
-        <div class="side-time"><span>PERSONAL BEST</span><strong id="best-time">—</strong></div>
-        <div class="current-time">
-          <span>CURRENT RUN</span><strong id="current-time">00:00.000</strong>
-          <div id="progress" class="progress"><i></i></div>
-        </div>
-        <div class="side-time">
-          <span id="delta-label">GHOST</span><strong id="ghost-status">—</strong>
-        </div>
-      </div>
-      <div class="speedometer">
-        <strong id="speed">0</strong><span>KM/H</span>
-        <div class="speed-bars" id="speed-bars"></div>
-        <small id="drive-status">READY</small>
-      </div>
-      <div class="race-key-hints">
-        <kbd>SPACE</kbd> HANDBRAKE <kbd>BACKSPACE</kbd> CHECKPOINT <kbd>C</kbd> CAMERA
-      </div>
-      <div id="touch-controls" class="touch-controls" aria-label="Touch driving controls">
-        <div>
-          <button data-control="ArrowLeft" aria-label="Steer left">◀</button
-          ><button data-control="ArrowRight" aria-label="Steer right">▶</button>
-        </div>
-        <div>
-          <button data-control="ArrowDown" aria-label="Brake or reverse">▼</button
-          ><button data-control="ArrowUp" class="accelerator" aria-label="Accelerate">▲</button>
-        </div>
-      </div>
-    </section>
-    <section
-      id="pause-modal"
-      class="modal-layer"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="pause-title"
-      hidden
-    >
-      <div class="dialog">
-        <p class="eyebrow">TAKE A BREATHER</p>
-        <h2 id="pause-title">PAUSED<span>Ⅱ</span></h2>
-        <p>The clock is waiting for you.</p>
-        <button id="resume" class="button primary">BACK TO THE TRACK <span>→</span></button
-        ><button id="pause-restart" class="button secondary">RESTART RUN</button
-        ><button id="pause-menu" class="text-button">EXIT TO MENU</button>
-      </div>
-    </section>
-    <section
-      id="finish-modal"
-      class="modal-layer"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="finish-title"
-      hidden
-    >
-      <div class="dialog result-dialog">
-        <p class="eyebrow" id="finish-label">FINISH LINE</p>
-        <h2 id="finish-title">LAP COMPLETE.</h2>
-        <div id="medal" class="medal">★</div>
-        <strong id="result-time" class="result-time"></strong>
-        <p id="result-copy"></p>
-        <div class="result-detail">
-          <span>PREVIOUS BEST</span><strong id="previous-best">—</strong>
-        </div>
-        <button id="retry" class="button primary">GO AGAIN <span>↻</span></button
-        ><button id="next-track" class="button secondary">NEXT CIRCUIT <span>→</span></button
-        ><button id="finish-menu" class="text-button">BACK TO MENU</button>
-      </div>
-    </section>
-    <section
-      id="settings-modal"
-      class="modal-layer"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="settings-title"
-      hidden
-    >
-      <div class="dialog settings-dialog">
-        <button id="settings-close" class="close-button" aria-label="Close settings">×</button>
-        <p class="eyebrow">MAKE IT YOURS</p>
-        <h2 id="settings-title">THE GARAGE.</h2>
-        <label class="field-label">CAR LIVERY</label>
-        <div id="palette" class="palette"></div>
-        <div class="setting-row">
-          <label for="camera-setting">Camera</label
-          ><select id="camera-setting">
-            <option value="chase">Chase</option>
-            <option value="hood">Cockpit</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <label for="quality-setting">Graphics</label
-          ><select id="quality-setting">
-            <option value="high">High · shadows</option>
-            <option value="low">Performance</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <label for="sound-setting">Engine sounds</label
-          ><input id="sound-setting" type="checkbox" />
-        </div>
-        <div class="setting-row">
-          <label for="ghost-setting">Personal best ghost</label
-          ><input id="ghost-setting" type="checkbox" />
-        </div>
-        <p class="settings-note">Records, ghosts, and custom circuits stay in this browser.</p>
-        <button id="settings-done" class="button primary">READY TO RACE <span>→</span></button>
-      </div>
-    </section>
-    <section id="editor" class="editor" aria-label="Track editor" hidden>
-      <header class="editor-header">
-        <button id="editor-back" class="hud-button">↖ MENU</button
-        ><strong>TRACK <span>EDITOR</span></strong
-        ><button id="editor-test" class="button primary compact">TEST DRIVE ↗</button>
-      </header>
-      <div class="editor-workspace">
-        <div class="editor-viewport">
-          <canvas id="editor-canvas" aria-label="Editable overhead track map"></canvas>
-          <div class="editor-instructions">
-            DRAG POINTS TO SHAPE YOUR CIRCUIT <span>SHIFT + CLICK TO ADD · SCROLL TO ZOOM</span>
-          </div>
-          <div class="editor-zoom">
-            <button id="editor-zoom-out" aria-label="Zoom out">−</button
-            ><button id="editor-fit">FIT</button
-            ><button id="editor-zoom-in" aria-label="Zoom in">＋</button>
-          </div>
-        </div>
-        <aside class="editor-sidebar">
-          <p class="eyebrow">CIRCUIT PROPERTIES</p>
-          <label class="field-label" for="track-name">TRACK NAME</label
-          ><input id="track-name" maxlength="40" /><label
-            class="field-label"
-            for="track-environment"
-            >ENVIRONMENT</label
-          ><select id="track-environment">
-            <option value="alpine">Alpine</option>
-            <option value="desert">Desert</option>
-            <option value="night">Night</option></select
-          ><label class="field-label" for="track-width"
-            >ROAD WIDTH <output id="width-value">17 m</output></label
-          ><input id="track-width" type="range" min="10" max="26" step="1" /><label
-            class="setting-row"
-            >Safety barriers <input id="track-barriers" type="checkbox"
-          /></label>
-          <div class="editor-divider"></div>
-          <label class="field-label" for="point-height"
-            >POINT <span id="point-number">01</span> · ELEVATION
-            <output id="height-value">7 m</output></label
-          ><input id="point-height" type="range" min="2" max="100" step="1" />
-          <div class="editor-small-actions">
-            <button id="point-add">＋ ADD POINT</button><button id="point-delete">− DELETE</button
-            ><button id="editor-undo">↶ UNDO</button>
-          </div>
-          <p id="editor-status" class="editor-status" role="status">
-            Drag a point to start building.
-          </p>
-          <div class="editor-save-actions">
-            <button id="editor-save" class="button primary compact">
-              SAVE CIRCUIT <span>↓</span>
-            </button>
-            <div class="editor-small-actions">
-              <button id="editor-export">EXPORT .JSON</button
-              ><button id="editor-import">IMPORT .JSON</button>
-            </div>
-            <input id="import-file" type="file" accept="application/json,.json" hidden />
-          </div>
-        </aside>
-      </div>
-    </section>
-    <div id="toast" class="toast" role="status" hidden></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+
+
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+<!-- Credit airbender5026 and iceverychill -->
+
+
+<html>
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/AZURE2077/polytrack-beta-0.6.0@main/">
+    <script>
+        var NativeImage = window.Image;
+        window.Image = function() {
+            var img = arguments.length ? new NativeImage(arguments[0], arguments[1]) : new NativeImage();
+            img.crossOrigin = "anonymous";
+            return img;
+        };
+        window.Image.prototype = NativeImage.prototype;
+        var _createElement = document.createElement.bind(document);
+        document.createElement = function(tag) {
+            var el = _createElement.apply(document, arguments);
+            if (typeof tag === "string" && tag.toLowerCase() === "img") {
+                el.crossOrigin = "anonymous";
+            }
+            return el;
+        };
+        var _audioContexts = [];
+        var _gestured = false;
+        function _resumeAll() {
+            _gestured = true;
+            _audioContexts.forEach(function(ctx) {
+                if (ctx.state === "suspended") ctx.resume();
+            });
+        }
+        document.addEventListener("click", _resumeAll, true);
+        document.addEventListener("keydown", _resumeAll, true);
+        document.addEventListener("touchstart", _resumeAll, true);
+        var NativeAC = window.AudioContext || window.webkitAudioContext;
+        if (NativeAC) {
+            var PatchedAC = function() {
+                var ctx = arguments.length ? new NativeAC(arguments[0]) : new NativeAC();
+                _audioContexts.push(ctx);
+                if (_gestured && ctx.state === "suspended") ctx.resume();
+                return ctx;
+            };
+            PatchedAC.prototype = NativeAC.prototype;
+            try { window.AudioContext = PatchedAC; } catch(e) {}
+            try { window.webkitAudioContext = PatchedAC; } catch(e) {}
+        }
+        var cdnBase = document.querySelector("base").href;
+        var PROXY = "vpskodub.tmena1565.workers.dev";
+        var workerPatchLines = [
+            'var __cdnBase = "' + cdnBase + '";',
+            'var __proxy = "' + PROXY + '";',
+            'function __resolveUrl(url) {',
+            '    if (typeof url !== "string") return url;',
+            '    if (url.indexOf("http") !== 0 && url.indexOf("blob:") !== 0 && url.indexOf("data:") !== 0 && url.indexOf("//") !== 0) {',
+            '        return __cdnBase + url.replace(/^\\//, "");',
+            '    }',
+            '    return url.replace("vps.kodub.com", __proxy);',
+            '}',
+            'var __origFetch = self.fetch.bind(self);',
+            'self.fetch = function(input, init) {',
+            '    if (typeof input === "string") input = __resolveUrl(input);',
+            '    else if (input instanceof Request) input = new Request(__resolveUrl(input.url), input);',
+            '    return __origFetch(input, init);',
+            '};',
+            'var __origXHROpen = XMLHttpRequest.prototype.open;',
+            'XMLHttpRequest.prototype.open = function(method, url) {',
+            '    var args = Array.prototype.slice.call(arguments);',
+            '    args[1] = __resolveUrl(url);',
+            '    return __origXHROpen.apply(this, args);',
+            '};'
+        ];
+        var workerPatch = workerPatchLines.join("\n") + "\n";
+        window.simulationWorkerReady = fetch(cdnBase + "simulation_worker.bundle.js")
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+                text = text.split("replacethisplease").join(cdnBase);
+                text = text.replace(
+                    /importScripts\(\s*["'](?!https?:\/\/|blob:|data:)([^"']+)["']\s*\)/g,
+                    function(match, path) { return 'importScripts("' + cdnBase + path + '")'; }
+                );
+                text = workerPatch + text;
+                return "data:application/javascript," + encodeURIComponent(text);
+            });
+        var ogWorker = window.Worker;
+        window.Worker = function(scriptUrl, options) {
+            if (typeof scriptUrl === "string" && scriptUrl.toLowerCase() === "simulation_worker.bundle.js") {
+                var realWorker = null;
+                var pendingPosts = [];
+                var listeners = {};
+                var wrapper = {
+                    postMessage: function() {
+                        var args = arguments;
+                        if (realWorker) realWorker.postMessage.apply(realWorker, args);
+                        else pendingPosts.push(args);
+                    },
+                    terminate: function() { if (realWorker) realWorker.terminate(); },
+                    addEventListener: function(type, fn, opts) {
+                        if (!listeners[type]) listeners[type] = [];
+                        listeners[type].push({ fn: fn, opts: opts });
+                        if (realWorker) realWorker.addEventListener(type, fn, opts);
+                    },
+                    removeEventListener: function(type, fn) {
+                        if (realWorker) realWorker.removeEventListener(type, fn);
+                    }
+                };
+                Object.defineProperty(wrapper, "onmessage", {
+                    get: function() { return this._onmessage; },
+                    set: function(fn) { this._onmessage = fn; if (realWorker) realWorker.onmessage = fn; }
+                });
+                Object.defineProperty(wrapper, "onerror", {
+                    get: function() { return this._onerror; },
+                    set: function(fn) { this._onerror = fn; if (realWorker) realWorker.onerror = fn; }
+                });
+                window.simulationWorkerReady.then(function(dataUri) {
+                    realWorker = new ogWorker(dataUri, options);
+                    realWorker.onmessage = function(e) { if (wrapper._onmessage) wrapper._onmessage(e); };
+                    realWorker.onerror   = function(e) { if (wrapper._onerror)   wrapper._onerror(e); };
+                    Object.keys(listeners).forEach(function(type) {
+                        listeners[type].forEach(function(item) {
+                            realWorker.addEventListener(type, item.fn, item.opts);
+                        });
+                    });
+                    pendingPosts.forEach(function(args) {
+                        realWorker.postMessage.apply(realWorker, args);
+                    });
+                });
+                return wrapper;
+            }
+            return new ogWorker(scriptUrl, options);
+        };
+        window.Worker.prototype = ogWorker.prototype;
+        var ogFetch = window.fetch;
+        window.fetch = function(input, init) {
+            if (typeof input === "string") {
+                input = input.replace("vps.kodub.com", PROXY);
+            } else if (input instanceof Request) {
+                input = new Request(input.url.replace("vps.kodub.com", PROXY), input);
+            }
+            return ogFetch(input, init);
+        };
+        var ogXHROpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(method, url) {
+            var args = Array.prototype.slice.call(arguments);
+            if (typeof url === "string") args[1] = url.replace("vps.kodub.com", PROXY);
+            return ogXHROpen.apply(this, args);
+        };
+    </script>
+    <meta charset="utf-8">
+    <link rel="preload" href="forced_square.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml" crossorigin="anonymous" />
+    <link rel="preload" href="images/discord.svg" as="image" type="image/svg+xml" crossorigin="anonymous" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
+    <script defer="defer" src="error_screen.bundle.js"></script>
+    <script defer="defer" src="main.bundle.js"></script>
+</head>
+<body>
+    <canvas id="screen"></canvas>
+    <div id="ui"></div>
+    <div id="transition-layer"></div>
+</body>
 </html>

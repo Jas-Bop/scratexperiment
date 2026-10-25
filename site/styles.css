@@ -292,14 +292,21 @@ h1 {
   .game-nav {
     gap: 0;
     flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .game-nav::-webkit-scrollbar {
+    display: none;
   }
   .game-nav a {
-    padding: 0 12px;
+    flex-shrink: 0;
+    padding: 0 8px;
     font-size: 11px;
   }
   .game-nav a[aria-current='page']::after {
-    left: 12px;
-    right: 12px;
+    left: 8px;
+    right: 8px;
   }
   .library {
     padding: 34px 18px 25px;

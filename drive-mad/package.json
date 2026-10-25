@@ -1,0 +1,13 @@
+{
+  "name": "drive-mad-html-player",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The supplied Drive Mad HTML game page, integrated with Game Hub.",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "engines": {
+    "node": ">=22.17"
+  }
+}

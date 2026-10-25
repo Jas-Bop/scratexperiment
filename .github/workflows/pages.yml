@@ -27,7 +27,6 @@ jobs:
           cache: npm
           cache-dependency-path: |
             anime-launch/package-lock.json
-            polytrack/package-lock.json
 
       - name: Install dependencies
         run: npm run setup
@@ -38,7 +37,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build dashboard and both games
+      - name: Build dashboard and all games
         run: npm run build
 
       - name: Upload website
